@@ -22,17 +22,11 @@ function renderMeme() {
   img.onload = function () {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    drawText(getMeme().lines[0].txt, 130, 130)
+    drawText(getMeme().lines[0].txt, 210, 50)
+    drawText(getMeme().lines[1].txt, 210, 400)
   }
   img.src = `images/${getMeme().selectedImgId}.jpg`
 }
-
-
-
-
-
-
-
 
 
 // TEXT
@@ -54,26 +48,27 @@ setTextColor(userColor)
 function changeTextSize(sign) {
 setTextSize(sign)
 }
+function  renderTextValueAfterswitch(line) {
+  const elAddText = document.querySelector('.editor #add-text')
+  elAddText.value = gMeme.lines[line].txt
+}
 
 
 
 
+// LINE
+function onAddLine() {
+addLine()
+}
 
+function onSwitchLine() {
+setSwitchLine()
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function deletePlaceHolder() {
+  const elAddText = document.querySelector('.editor #add-text')
+  elAddText.value = ''
+}
 
 // DOWNLOAD
 function downloadCanvas(elLink) {

@@ -13,7 +13,7 @@
     margin-block-start: 1em;
 }
 
-.editor #text {
+.editor #add-text {
     width: 350px;
 }
 
@@ -34,4 +34,11 @@
 .editor .font-size-container {
     display: flex;
     border-radius: 2em;
+}
+
+.editor .line {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
 }

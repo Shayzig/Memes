@@ -35,7 +35,7 @@
         <div class="editor">
 
             <label for="text">
-                <input id="text" type="text" placeholder="Write" name="add-text" oninput="setLineText(this.value)" />
+                <input id="add-text" type="text" placeholder="Write" name="add-text" oninput="setLineText(this.value)" />
             </label>
             <div class="file">
                 <a class="btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
@@ -48,6 +48,11 @@
                 </div>
                 <label for="color"></label>
                 <input oninput="changeTextColor(this.value)" type="color" id="txt-color" name="txt-color" value="#000000" />
+            </div>
+
+            <div class="line">
+                <button onclick="onAddLine()" class="btn" >Add Line</button>
+                <button onclick="onSwitchLine()" class="btn" >Switch</button>
             </div>
         </div>
     </section>
