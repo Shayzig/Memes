@@ -6,13 +6,18 @@ let gMeme = {
             {
                 txt: '',
                 size: 40,
-                color: 'red'
+                color: 'red',
+                x: 250,
+                y: 100,
+
             },
 
             {
                 txt: '',
                 size: 40,
-                color: 'blue'
+                color: 'blue',
+                x: 250,
+                y: 350,
             }
         ]
 
@@ -31,6 +36,7 @@ function setLineText(userText) {
     } else {
         gMeme.lines[1].txt = userText
     }
+    // saveUserText(userText)
     renderMeme()
 }
 
@@ -77,23 +83,41 @@ function addLine() {
 function setSwitchLine() {
     if (gMeme.selectedLineIdx === 0) {
         gMeme.selectedLineIdx = 1
-        console.log('selectedLineIdx', gMeme.selectedLineIdx)
 
         setTextValueAfterSwitch('secondLine')
     } else if (gMeme.selectedLineIdx === 1) {
         gMeme.selectedLineIdx = 0
-        console.log('selectedLineIdx', gMeme.selectedLineIdx)
 
         setTextValueAfterSwitch('firstLine')
     }
 }
 
+function getSelectedLineIdx() {
+    return gMeme.selectedLineIdx
+}
 
+function getSelectedLine() {
+    return gMeme.lines[gMeme.selectedLineIdx]
+}
 
-
+function getSelectedLineUserText() {
+    return gMeme.lines[gMeme.selectedLineIdx].txt
+}
 
 // img selection from gallery
 function setImg(imgId) {
     gMeme.selectedImgId = imgId
     renderMeme()
+}
+
+
+function isClickedText(ev) {
+    console.log({ offsetX, offsetY } = ev)
+
+    // let xPose = gMeme.lines[gMeme.selectedLineIdx].x
+    // let yPose = gMeme.lines[gMeme.selectedLineIdx].y
+
+    // console.log('xPose:',gMeme.lines[gMeme.selectedLineIdx].x, 'yPose', gMeme.lines[gMeme.selectedLineIdx].y )
+
+    // if (offsetX >= )
 }
