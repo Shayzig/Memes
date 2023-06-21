@@ -1,14 +1,15 @@
 header {
+    position: absolute;
+    top: 1%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 2em;
-    border-radius: 20px;
+    border-radius: 3em;
     margin: auto;
-    width: 90vw;
+    width: 98%;
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     color: white;
-    height: 3em;
+    height: 3.8em;
 }
 
 .logo {

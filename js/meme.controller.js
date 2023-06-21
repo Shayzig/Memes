@@ -70,11 +70,12 @@ function  renderTextValueAfterswitch(line) {
 // LINE
 function onAddLine() {
 addLine()
+renderMeme()
+renderFrame()
 }
 
 function onSwitchLine() {
 setSwitchLine()
-onClearCanvas()
 renderMeme()
 renderFrame()
 
@@ -119,9 +120,9 @@ function onClearCanvas() {
 
 
 //CLICK
-function onCanvasClick(ev) {
-  console.log('offsetX', ev.offsetX)
-  console.log('offsetY', ev.offsetY)
+function onCanvasClick({offsetX, offsetY}) {
 
-  // isClickedText(ev)
+  if (isTextClicked({offsetX, offsetY})) {
+    onSwitchLine()
+  }
 }

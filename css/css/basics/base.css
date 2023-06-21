@@ -8,7 +8,7 @@ html {
 
 body {
     margin: 0;
-    background-color: var(--clrPrimarybase);
+    background: linear-gradient(to right, #0f9bb3,#30bb73);
 }
 
 img {

@@ -1,7 +1,8 @@
 .editor {
+    position: relative;
     display: flex;
     flex-direction: column;
-    background-color: aqua;
+    background-color: rgba(255, 255, 255, 0.093);
     height: 500px;
     width: 500px;
     border-radius: 2em;
@@ -14,7 +15,16 @@
 }
 
 .editor #add-text {
+    all: initial;
+    background-color: white;
+    border-bottom: 4px solid rgb(199, 199, 199);
     width: 350px;
+    margin-inline-start: 6%;
+    border-radius: 2em;
+    text-align: center;
+    padding: 0.3em;
+    font-size: 2.8em;
+    font-family: sans-serif;
 }
 
 .editor .file {
@@ -31,6 +41,7 @@
     align-items: center;
     border: 1px solid black;
 }
+
 .editor .font-size-container {
     display: flex;
     border-radius: 2em;

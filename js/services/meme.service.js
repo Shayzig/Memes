@@ -1,6 +1,7 @@
 let gMeme = {
     selectedImgId: 10,
     selectedLineIdx: 0,
+    notSelectedLineIdx: 1,
     lines:
         [
             {
@@ -9,6 +10,7 @@ let gMeme = {
                 color: 'red',
                 x: 250,
                 y: 100,
+                
 
             },
 
@@ -22,6 +24,9 @@ let gMeme = {
         ]
 
 }
+
+let isFirstLineChecked = false
+
 
 
 function getMeme() {
@@ -52,7 +57,6 @@ function setTextValueAfterSwitch(lineText) {
 //text-color
 function setTextColor(userColor) {
     gMeme.lines[gMeme.selectedLineIdx].color = userColor
-    console.log('gMeme', gMeme)
     renderMeme()
 }
 
@@ -77,18 +81,23 @@ function getTextSize(line) {
 // line
 function addLine() {
     gMeme.selectedLineIdx = 1
+    isFirstLineChecked = true
     deletePlaceHolder()
 }
 
 function setSwitchLine() {
-    if (gMeme.selectedLineIdx === 0) {
-        gMeme.selectedLineIdx = 1
-
-        setTextValueAfterSwitch('secondLine')
-    } else if (gMeme.selectedLineIdx === 1) {
-        gMeme.selectedLineIdx = 0
-
-        setTextValueAfterSwitch('firstLine')
+    if (isFirstLineChecked) {
+        if (gMeme.selectedLineIdx === 0) {
+            gMeme.selectedLineIdx = 1
+            gMeme.notSelectedLineIdx = 0
+            
+            setTextValueAfterSwitch('secondLine')
+        } else if (gMeme.selectedLineIdx === 1) {
+            gMeme.selectedLineIdx = 0
+            gMeme.notSelectedLineIdx = 1
+        
+            setTextValueAfterSwitch('firstLine')
+        }
     }
 }
 
@@ -111,13 +120,13 @@ function setImg(imgId) {
 }
 
 
-function isClickedText(ev) {
-    console.log({ offsetX, offsetY } = ev)
+function isTextClicked (clickedPos) {
 
-    // let xPose = gMeme.lines[gMeme.selectedLineIdx].x
-    // let yPose = gMeme.lines[gMeme.selectedLineIdx].y
+    let xPose = gMeme.lines[gMeme.notSelectedLineIdx].x
+    let yPose = gMeme.lines[gMeme.notSelectedLineIdx].y
 
-    // console.log('xPose:',gMeme.lines[gMeme.selectedLineIdx].x, 'yPose', gMeme.lines[gMeme.selectedLineIdx].y )
+    const distance = Math.sqrt((xPose - clickedPos.offsetX) ** 2 + (yPose -clickedPos.offsetY) ** 2)
 
-    // if (offsetX >= )
+    return distance <= gMeme.lines[gMeme.notSelectedLineIdx].size
+
 }

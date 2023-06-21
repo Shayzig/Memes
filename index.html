@@ -15,17 +15,19 @@
 <body onload="onInit()">
 
     <!-- header -->
-    <header>
-        <div onclick="onMemes()" class="logo">memes</div>
-        <div class="navbar-container">
-            <div onclick="onGallery()" class="gallery">Gallery</div>
-            <div class="About">About</div>
-        </div>
-    </header>
-
+    
     <!-- main-content -->
+    
     <section class="main-content">
 
+        <header>
+            <div onclick="onMemes()" class="logo">memes</div>
+            <div class="navbar-container">
+                <div onclick="onGallery()" class="gallery">Gallery</div>
+                <div class="About">About</div>
+            </div>
+        </header>
+        
         <!-- canvas -->
         <div class="my-canvas">
             <canvas onclick="onCanvasClick(event)" width="500" height="500"></canvas>
@@ -35,7 +37,7 @@
         <div class="editor">
 
             <label for="text">
-                <input id="add-text" type="text" placeholder="Write" name="add-text" oninput="setLineText(this.value)" />
+                <input id="add-text" type="text" name="add-text" oninput="setLineText(this.value)" />
             </label>
             <div class="file">
                 <a class="btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
