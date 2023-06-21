@@ -28,7 +28,7 @@
 
         <!-- canvas -->
         <div class="my-canvas">
-            <canvas width="476" height="546"></canvas>
+            <canvas width="500" height="500"></canvas>
         </div>
 
         <!-- editor -->
@@ -43,8 +43,8 @@
 
             <div class="font">
                 <div class="font-size-container">
-                    <button onclick="changeTextSize('+')" class="btn" >+</button>
-                    <button onclick="changeTextSize('-')" class="btn" >-</button>
+                    <button onclick="onChangeTextSize('+')" class="btn" >+</button>
+                    <button onclick="onChangeTextSize('-')" class="btn" >-</button>
                 </div>
                 <label for="color"></label>
                 <input oninput="changeTextColor(this.value)" type="color" id="txt-color" name="txt-color" value="#000000" />

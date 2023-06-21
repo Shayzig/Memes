@@ -5,14 +5,14 @@ let gMeme = {
         [
             {
                 txt: '',
-                size: 20,
+                size: 40,
                 color: 'red'
             },
 
             {
                 txt: '',
-                size: 20,
-                color: 'red'
+                size: 40,
+                color: 'blue'
             }
         ]
 
@@ -34,6 +34,7 @@ function setLineText(userText) {
     renderMeme()
 }
 
+//set correct text value in the input
 function setTextValueAfterSwitch(lineText) {
     if (lineText === 'firstLine') {
         renderTextValueAfterswitch(0)
@@ -44,28 +45,30 @@ function setTextValueAfterSwitch(lineText) {
 
 //text-color
 function setTextColor(userColor) {
-    gMeme.lines[0].color = userColor
+    gMeme.lines[gMeme.selectedLineIdx].color = userColor
+    console.log('gMeme', gMeme)
     renderMeme()
 }
 
-function getTextColor() {
-    return gMeme.lines[0].color
+function getTextColor(line) {
+    return gMeme.lines[line].color
 }
 
 //font-size
 function setTextSize(sign) {
-    let textSize = gMeme.lines[0].size
-
-    sign === '+' ? gMeme.lines[0].size += 5 : gMeme.lines[0].size -= 5
-    if (textSize >= 40 || textSize <= 10) return
+    if (sign === '+') {
+        gMeme.lines[gMeme.selectedLineIdx].size += 5
+    } else if (sign === '-') {
+        gMeme.lines[gMeme.selectedLineIdx].size -= 5
+    }
     renderMeme()
 }
 
-function getTextSize() {
-    return gMeme.lines[0].size
+function getTextSize(line) {
+    return gMeme.lines[line].size
 }
 
-// LINE
+// line
 function addLine() {
     gMeme.selectedLineIdx = 1
     deletePlaceHolder()
@@ -74,9 +77,13 @@ function addLine() {
 function setSwitchLine() {
     if (gMeme.selectedLineIdx === 0) {
         gMeme.selectedLineIdx = 1
+        console.log('selectedLineIdx', gMeme.selectedLineIdx)
+
         setTextValueAfterSwitch('secondLine')
     } else if (gMeme.selectedLineIdx === 1) {
         gMeme.selectedLineIdx = 0
+        console.log('selectedLineIdx', gMeme.selectedLineIdx)
+
         setTextValueAfterSwitch('firstLine')
     }
 }
