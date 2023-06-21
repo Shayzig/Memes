@@ -1,0 +1,10 @@
+.my-canvas {
+    height: 546px;
+    width: 476px;
+}
+
+.my-canvas canvas {
+    display: block;
+    background-color: white;
+    border-radius: 2em;
+}

@@ -1,0 +1,26 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2em;
+    border-radius: 20px;
+    margin: auto;
+    width: 90vw;
+    background: linear-gradient(to right, #0f9bb3,#30bb73);
+    color: white;
+    height: 3em;
+}
+
+.logo {
+    margin-inline-start: 2em;
+}
+
+.navbar-container {
+    display: flex;
+   margin-inline-end: 10em;
+}
+.navbar-container >* {
+    color: white;
+    margin: 0 1em;
+    text-decoration: none;
+}

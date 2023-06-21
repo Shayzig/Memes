@@ -1,0 +1,37 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    height: 546px;
+    width: 476px;
+    border-radius: 2em;
+    padding: 2em;
+}
+
+.editor>* {
+    margin-inline-start: 1em;
+    margin-block-start: 1em;
+}
+
+.editor #text {
+    width: 350px;
+}
+
+.editor .file {
+    display: flex;
+    justify-content: space-evenly;
+    margin-block-start: 1em;
+    border: 1px solid grey;
+    border-radius: 2em;
+}
+
+.editor .font {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+}
+.editor .font-size-container {
+    display: flex;
+    border-radius: 2em;
+}

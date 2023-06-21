@@ -1,0 +1,11 @@
+.img-gallery {
+    display:none;
+    flex-wrap: wrap;
+    gap: 2em;
+   
+}
+.img-gallery img {
+    height: 100px;
+    width: 100px;
+    border-radius: 1em;
+}
