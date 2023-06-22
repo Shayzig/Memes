@@ -39,22 +39,25 @@
             <label for="text">
                 <input id="add-text" type="text" name="add-text" oninput="setLineText(this.value)" />
             </label>
-            <div class="file">
-                <a class="btn" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-            </div>
-
-            <div class="font">
-                <div class="font-size-container">
-                    <button onclick="onChangeTextSize('+')" class="btn" >+</button>
-                    <button onclick="onChangeTextSize('-')" class="btn" >-</button>
-                </div>
-                <label for="color"></label>
-                <input oninput="changeTextColor(this.value)" type="color" id="txt-color" name="txt-color" value="#000000" />
-            </div>
-
             <div class="line">
-                <button onclick="onAddLine()" class="btn" >Add Line</button>
-                <button onclick="onSwitchLine()" class="btn" >Switch</button>
+                <button onclick="onSwitchLine()" class="btn switch" ><img src="/images/icons/Forme_3.png"> <img src="/images/icons/Forme_3_copie.png"></button>
+                <button onclick="onAddLine()" class="btn add-line" ><img src="/images/icons/+.png"></button>
+                <button onclick="onSwitchLine()" class="btn delete" ><img src="/images/icons/Forme_4.png"></button>
+            </div>
+
+            <div class="font-section">
+        
+                    <button onclick="onChangeTextSize('+')" class="btn font" ><img src="/images/icons/A+.png"></button>
+                    <button onclick="onChangeTextSize('-')" class="btn font" ><img src="/images/icons/A-.png"></button>
+                    <button class="btn font" >Check</button>
+                    <button class="btn font" >Check</button>
+                    <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color" name="txt-color" value="#000000" />
+                </label>
+            </div>
+
+            <div class="file-section">
+                <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Share</a>
+                <a class="btn file download" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
             </div>
         </div>
     </section>

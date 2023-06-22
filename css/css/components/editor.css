@@ -14,6 +14,19 @@
     margin-block-start: 1em;
 }
 
+.editor .btn {
+    all: initial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0.5em;
+    background-color: chartreuse;
+    width: 3.56em;
+    height: 3.40em;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.388);
+}
+
 .editor #add-text {
     all: initial;
     background-color: white;
@@ -22,34 +35,93 @@
     margin-inline-start: 6%;
     border-radius: 2em;
     text-align: center;
-    padding: 0.3em;
-    font-size: 2.8em;
+    padding: 0.15em;
+    font-size: 2em;
     font-family: sans-serif;
 }
 
-.editor .file {
+.editor .file-section {
     display: flex;
     justify-content: space-evenly;
-    margin-block-start: 1em;
-    border: 1px solid grey;
-    border-radius: 2em;
 }
 
-.editor .font {
+.editor .file  {
+    width: 50%;
+    margin: 0.2em 0.7em;
+    color: white;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    border-radius: 1.2em;
+    padding: 0;
+    height: 2.8em;
+}
+.editor .file-section .download {
+    background-color:#8f44bb ;
+    border-bottom: 4px solid #502369;
+    border-top: 4px solid #b86ee3;
+}
+.editor .file-section .share {
+    background-color:#1e7cd3 ;
+    border-bottom: 4px solid #165c9c;
+    border-top: 4px solid#57b2e8;
+}
+
+.editor .font-section {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-}
-
-.editor .font-size-container {
-    display: flex;
-    border-radius: 2em;
+    background: linear-gradient(to right, #0f9bb3,#30bb73);
+    border-radius: 0.7em;
+    padding: 0.6em;
 }
 
 .editor .line {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    border: 1px solid black;
 }
+
+.editor .line>* {
+    margin-inline: 0.7em;
+}
+
+.editor .line .delete {
+    background-color: #d82b36;
+    border-bottom: 4px solid #8c0606;
+    border-top: 4px solid #ef6b5b;
+}
+.editor .line .delete img {
+    width: 50%;
+    height: 60%;
+}
+
+.editor .line .add-line {
+    background-color: #3dd254;
+    border-bottom: 4px solid #015d33;
+    border-top: 4px solid #60d875;
+}
+
+.editor .line .add-line img {
+    width: 50%;
+    height: 50%;
+}
+
+.editor .line .switch {
+    background-color: #40b1ce;
+    border-bottom: 4px solid #048b97;
+    border-top: 4px solid #4ebdd5;
+}
+.editor .line .switch img {
+    width: 40%;
+    height: 55%;
+}
+
+.editor .font-section .font {
+    background-color:#ffffff ;
+    border-bottom: 4px solid #3e7d7a;
+}
+.editor .font-section .font img {
+    width: 60%;
+    height: 40%;
+}
+
