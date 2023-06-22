@@ -93,16 +93,19 @@ function renderFrame() {
 }
 
 function drawRect(x, y) {
-  const rectWidth = 380
-  const rectHeight = 80
-  const rectX = x - 188
-  const rectY = y - 42
+  const rectWidth = 380;
+  const rectHeight = 80;
+  const rectX = x - 188;
+  const rectY = y - 42;
   
-  gCtx.strokeStyle = 'black'
-  gCtx.setLineDash([5, 5])
-  gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight)
-  gCtx.setLineDash([])
+  gCtx.strokeStyle = 'transparent';
+  gCtx.fillStyle = 'rgba(255, 255, 255, 0.2)'; 
+  gCtx.setLineDash([5, 5]);
+  gCtx.fillRect(rectX, rectY, rectWidth, rectHeight); 
+  gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight);
+  gCtx.setLineDash([]);
 }
+
 
 
 

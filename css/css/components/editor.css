@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.093);
-    height: 500px;
     width: 500px;
     border-radius: 2em;
     padding: 2em;
@@ -25,14 +24,15 @@
     width: 3.56em;
     height: 3.40em;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.388);
+    cursor: pointer;
 }
 
 .editor #add-text {
     all: initial;
     background-color: white;
     border-bottom: 4px solid rgb(199, 199, 199);
-    width: 350px;
-    margin-inline-start: 6%;
+    width: 90%;
+    margin-inline-start: 3%;
     border-radius: 2em;
     text-align: center;
     padding: 0.15em;
