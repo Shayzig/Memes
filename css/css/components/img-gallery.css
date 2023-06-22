@@ -36,8 +36,13 @@
 
 .extra-section {
     position: absolute;
+    display: flex;
     left: 50%;
     top: 5.5%;
+}
+
+.extra-section > * {
+    margin: 1.2em;
 }
 
 .extra-section button {

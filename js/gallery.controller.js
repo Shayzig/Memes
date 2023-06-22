@@ -8,6 +8,7 @@ function onGallery () {
 
 function renderGallery() {
     let imgs = getImgs()
+    console.log('imgs', imgs)
     
     var strHTMLs = imgs.map(img => {
         return `<img data-id="${img.id}" onclick="onImgSelect(this.dataset.id)" src="/${img.url}">`
@@ -18,4 +19,11 @@ function renderGallery() {
 
 function onImgSelect(imgId) {
  setImageFromGallery(imgId)
+}
+
+//FILTER BY
+
+function onSetFilterBy(filterBy) {
+    filterBy = setFilterBy(filterBy)
+    render
 }

@@ -302,3 +302,4 @@ function resizeCanvas() {
   gElCanvas.width = elContainer.offsetWidth
   gElCanvas.height = elContainer.offsetHeight
 }
+

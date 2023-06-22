@@ -27,7 +27,25 @@ let gMeme = {
 
 }
 
+let gFilterBy
+
 let gImgs = addImgs()
+addKeyWords()
+
+function addKeyWords() {
+    gImgs[0].keywords.push('politicians')
+    gImgs[1].keywords.push('dogs')
+    gImgs[2].keywords.push('dogs')
+    gImgs[3].keywords.push('cats')
+    gImgs[4].keywords.push('babys')
+    gImgs[5].keywords.push('funny')
+    gImgs[6].keywords.push('babys')
+    gImgs[7].keywords.push('babys')
+    gImgs[8].keywords.push('politicians')
+    gImgs[9].keywords.push('sports')
+    gImgs[10].keywords.push('funnys')
+}
+
 let isFirstRandom
 let isFirstLineChecked = false
 
@@ -56,16 +74,9 @@ function moveLine(dx, dy) {
     // console.log('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
 }
 
-function  getDragingSit() {
+function getDragingSit() {
     return gMeme.lines[gMeme.selectedLineIdx].isDrag
 }
-
-
-
-
-
-
-
 
 
 function getMeme() {
@@ -208,8 +219,10 @@ function addImgs() {
 
 function getImgs() {
     return gImgs
+    // var imgs = gImgs.filter(img =>
+    //     img.keywords[0].toLowerCase().includes(gFilterBy.toLowerCase())
+    // )
 }
-
 
 //SAVE MEMES
 function setSavedMeme(src, gSavedMemes) {
@@ -232,5 +245,10 @@ function setSavedMeme(src, gSavedMemes) {
 
 }
 
+//FILTER 
+
+function setFilterBy(filterBy) {
+    gFilterBy = filterBy
+}
 
 

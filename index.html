@@ -32,7 +32,7 @@
         <!-- canvas -->
         <div class="my-canvas">
             <!-- onclick="onCanvasClick(event) -->
-            <canvas  width="500" height="500"></canvas>
+            <canvas width="500" height="500"></canvas>
         </div>
 
         <!-- editor -->
@@ -51,7 +51,8 @@
             <div class="font-section">
                 <button onclick="onChangeTextSize('+')" class="btn font"><img src="images/icons/A+.png"></button>
                 <button onclick="onChangeTextSize('-')" class="btn font"><img src="images/icons/A-.png"></button>
-                <button onclick="onSaveMeme()" class="btn font save"><img src="images/icons/save-44-32.png" alt=""></button>
+                <button onclick="onSaveMeme()" class="btn font save"><img src="images/icons/save-44-32.png"
+                        alt=""></button>
                 <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color"
                     name="txt-color" value="#000000" />
                 </label>
@@ -60,7 +61,7 @@
             <div class="file-section">
                 <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
                 <button onclick="onUploadImg()" class="btn file download">Share </button>
-                
+
             </div>
             <div class="upload-container">
                 <input type="file" class="upload-btn" name="image" onchange="onImgInput(event)" />
@@ -78,15 +79,24 @@
                 <div onclick="onSaved()" class="saved">Saved</div>
                 <div class="About">About</div>
             </div>
-         </div>
+        </div>
 
-            <div class="extra-section">
-                <button onclick="onRandomMeme()">i'm flexible</button>
-            </div>
+        <div class="extra-section">
+            <button onclick="onRandomMeme()">i'm flexible</button>
 
-            <div class="main-screen">
+            <input onchange="onSetFilterBy(this.value)" list="img-type">
+            <datalist id="img-type">
+                <option value="Politicians">
+                <option value="Dogs">
+                <option value="Babys">
+                <option value="Sport">
+                <option value="Funny">
+            </datalist>
+        </div>
 
-            </div>
+        <div class="main-screen">
+
+        </div>
     </section>
 
     <section class="saved-memes">
@@ -100,7 +110,7 @@
             </div>
 
             <div class="main-screen">
-                
+
             </div>
 
     </section>
