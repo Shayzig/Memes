@@ -14,6 +14,7 @@ header {
 
 .logo {
     margin-inline-start: 2em;
+    cursor: pointer;
 }
 
 .navbar-container {
@@ -24,4 +25,5 @@ header {
     color: white;
     margin: 0 1em;
     text-decoration: none;
+    cursor: pointer;
 }

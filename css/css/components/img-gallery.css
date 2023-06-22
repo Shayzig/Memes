@@ -7,6 +7,7 @@
     width: 200px;
     border-radius: 1em;
     margin: 1em;
+    cursor: pointer;
 }
 
 .img-gallery .header {
@@ -20,6 +21,7 @@
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     color: white;
     height: 3.8em;
+    cursor: pointer;
 }
 
 .img-gallery .main-screen {
