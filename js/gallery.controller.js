@@ -1,15 +1,21 @@
 function onGallery () {
     document.querySelector('.main-content').style.display = 'none'
+    document.querySelector('.saved-memes').style.display = 'none'
     document.querySelector('.img-gallery').style.display = 'flex'
+    document.querySelector('body').style.background = 'none'
+    document.querySelector('body').style.backgroundColor = '#22252c'
 }
 
 function renderGallery() {
-    const elGallery = document.querySelector('.img-gallery')
-    elGallery.innerHTML = 
-    `<img data-num="1" onclick="onImgSelect(this.dataset.num)" src="/images/1.jpg">
-    <img data-num="2" onclick="onImgSelect(this.dataset.num)" src="/images/2.jpg">`
+    let imgs = getImgs()
+    
+    var strHTMLs = imgs.map(img => {
+        return `<img data-id="${img.id}" onclick="onImgSelect(this.dataset.id)" src="/${img.url}">`
+    })
+
+    const elGallery = document.querySelector('.img-gallery .main-screen').innerHTML = strHTMLs.join('')
 }
 
 function onImgSelect(imgId) {
- setImg(imgId)
+ setImageFromGallery(imgId)
 }

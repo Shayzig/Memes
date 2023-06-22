@@ -13,6 +13,7 @@
 @import url("components/editor.css");
 @import url("components/img-gallery.css");
 @import url("components/file.css");
+@import url("components/saved-memes.css");
 
 /* MQ */
 @import url("basics/mq.css");

@@ -15,19 +15,20 @@
 <body onload="onInit()">
 
     <!-- header -->
-    
+
     <!-- main-content -->
-    
+
     <section class="main-content">
 
         <header>
             <div onclick="onMemes()" class="logo">memes</div>
             <div class="navbar-container">
                 <div onclick="onGallery()" class="gallery">Gallery</div>
+                <div onclick="onSaved()" class="saved">Saved</div>
                 <div class="About">About</div>
             </div>
         </header>
-        
+
         <!-- canvas -->
         <div class="my-canvas">
             <canvas onclick="onCanvasClick(event)" width="500" height="500"></canvas>
@@ -40,30 +41,68 @@
                 <input id="add-text" type="text" name="add-text" oninput="setLineText(this.value)" />
             </label>
             <div class="line">
-                <button onclick="onSwitchLine()" class="btn switch" ><img src="/images/icons/Forme_3.png"> <img src="/images/icons/Forme_3_copie.png"></button>
-                <button onclick="onAddLine()" class="btn add-line" ><img src="/images/icons/+.png"></button>
-                <button onclick="onSwitchLine()" class="btn delete" ><img src="/images/icons/Forme_4.png"></button>
+                <button onclick="onSwitchLine()" class="btn switch"><img src="/images/icons/Forme_3.png"> <img
+                        src="/images/icons/Forme_3_copie.png"></button>
+                <button onclick="onAddLine()" class="btn add-line"><img src="/images/icons/+.png"></button>
+                <button onclick="onSwitchLine()" class="btn delete"><img src="/images/icons/Forme_4.png"></button>
             </div>
 
             <div class="font-section">
-        
-                    <button onclick="onChangeTextSize('+')" class="btn font" ><img src="/images/icons/A+.png"></button>
-                    <button onclick="onChangeTextSize('-')" class="btn font" ><img src="/images/icons/A-.png"></button>
-                    <button class="btn font" >Check</button>
-                    <button class="btn font" >Check</button>
-                    <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color" name="txt-color" value="#000000" />
+                <button onclick="onChangeTextSize('+')" class="btn font"><img src="/images/icons/A+.png"></button>
+                <button onclick="onChangeTextSize('-')" class="btn font"><img src="/images/icons/A-.png"></button>
+                <button onclick="onSaveMeme()" class="btn font">Save</button>
+                <button class="btn font">Check</button>
+                <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color"
+                    name="txt-color" value="#000000" />
                 </label>
             </div>
 
             <div class="file-section">
-                <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Share</a>
-                <a class="btn file download" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+                <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+                <button onclick="onUploadImg()" class="btn file download">Share </button>
             </div>
         </div>
     </section>
 
     <!-- img-gallery -->
-    <section class="img-gallery"></section>
+    <section class="img-gallery">
+
+        <div class="header">
+            <div onclick="onMemes()" class="logo">memes</div>
+            <div class="navbar-container">
+                <div onclick="onGallery()" class="gallery">Gallery</div>
+                <div onclick="onSaved()" class="saved">Saved</div>
+                <div class="About">About</div>
+            </div>
+         </div>
+
+            <div class="extra-section">
+                <button onclick="onRandomMeme()">i'm flexible</button>
+                <button onclick="onRandomMeme()">i'm flexible</button>
+                <button onclick="onRandomMeme()">i'm flexible</button>
+                <button onclick="onRandomMeme()">i'm flexible</button>
+            </div>
+
+            <div class="main-screen">
+
+            </div>
+    </section>
+
+    <section class="saved-memes">
+
+        <div class="header">
+            <div onclick="onMemes()" class="logo">memes</div>
+            <div class="navbar-container">
+                <div onclick="onGallery()" class="gallery">Gallery</div>
+                <div onclick="onSaved()" class="saved">Saved</div>
+                <div class="About">About</div>
+            </div>
+
+            <div class="main-screen">
+                
+            </div>
+
+    </section>
 
 </body>
 

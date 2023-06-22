@@ -1,15 +1,16 @@
-.img-gallery {
-    display:none;
+.saved-memes {
+    display: none;
     flex-wrap: wrap;   
 }
-.img-gallery img {
+
+.saved-memes img {
     height: 200px;
     width: 200px;
     border-radius: 1em;
     margin: 1em;
 }
 
-.img-gallery .header {
+.saved-memes .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,7 +23,7 @@
     height: 3.8em;
 }
 
-.img-gallery .main-screen {
+.saved-memes .main-screen {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -31,4 +32,15 @@
     background-color: rgba(255, 255, 255, 0.268);
     margin: 0 2%;
     border-radius: 0.8em;
+}
+
+.saved-memes .extra-section {
+    position: absolute;
+    top: 6.5%;
+    left: 50%;
+    transform: translate(-47%, 0);
+}
+
+.saved-memes .main-screen .hello {
+    margin: 300px;
 }

@@ -10,7 +10,7 @@ let gMeme = {
                 color: 'red',
                 x: 250,
                 y: 100,
-                
+
 
             },
 
@@ -25,6 +25,8 @@ let gMeme = {
 
 }
 
+let gImgs = addImgs()
+let isFirstRandom
 let isFirstLineChecked = false
 
 
@@ -86,19 +88,18 @@ function addLine() {
 }
 
 function setSwitchLine() {
-    if (isFirstLineChecked) {
         if (gMeme.selectedLineIdx === 0) {
             gMeme.selectedLineIdx = 1
             gMeme.notSelectedLineIdx = 0
-            
+
             setTextValueAfterSwitch('secondLine')
         } else if (gMeme.selectedLineIdx === 1) {
             gMeme.selectedLineIdx = 0
             gMeme.notSelectedLineIdx = 1
-        
+
             setTextValueAfterSwitch('firstLine')
         }
-    }
+    
 }
 
 function getSelectedLineIdx() {
@@ -114,19 +115,58 @@ function getSelectedLineUserText() {
 }
 
 // img selection from gallery
-function setImg(imgId) {
+function setImageFromGallery(imgId) {
     gMeme.selectedImgId = imgId
     renderMeme()
 }
 
 
-function isTextClicked (clickedPos) {
+function setRandomImg() {
+    if (isFirstRandom) {
+       renderFlexMeme()
+       isFirstRandom = false
+    } else {
+        clearText()
+        renderFlexMeme()
+    }
+}
+
+function clearText () {
+    gMeme.lines[gMeme.selectedLineIdx].txt = ''
+}
+
+function renderFlexMeme () {
+    gMeme.selectedImgId = getRandomInt(1, 18) //15
+    gMeme.selectedLineIdx = getRandomInt(0, 2) //1
+    gMeme.lines[gMeme.selectedLineIdx].size = getRandomInt(21, 50)
+    gMeme.lines[gMeme.selectedLineIdx].txt = makeLorem(4)
+}
+
+function isTextClicked(clickedPos) {
 
     let xPose = gMeme.lines[gMeme.notSelectedLineIdx].x
     let yPose = gMeme.lines[gMeme.notSelectedLineIdx].y
 
-    const distance = Math.sqrt((xPose - clickedPos.offsetX) ** 2 + (yPose -clickedPos.offsetY) ** 2)
+    const distance = Math.sqrt((xPose - clickedPos.offsetX) ** 2 + (yPose - clickedPos.offsetY) ** 2)
 
     return distance <= gMeme.lines[gMeme.notSelectedLineIdx].size
 
 }
+
+
+//IMG
+function addImgs() {
+    res = []
+    for (let i = 1; i < 18; i++) {
+        res.push({ id: i, url: `images/${i}.jpg`, keywords: [] })
+    }
+    return res
+}
+
+function getImgs() {
+    return gImgs
+}
+
+
+//SAVE MEMES
+

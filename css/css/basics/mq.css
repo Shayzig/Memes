@@ -30,4 +30,11 @@
     font-size: 0.8em;
   }
 
+  .img-gallery {
+    justify-content: center;   
+    align-items: center;
+    margin: auto;
+    margin-inline-start: 20px;
+}
+
 }
