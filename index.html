@@ -31,7 +31,8 @@
 
         <!-- canvas -->
         <div class="my-canvas">
-            <canvas onclick="onCanvasClick(event)" width="500" height="500"></canvas>
+            <!-- onclick="onCanvasClick(event) -->
+            <canvas  width="500" height="500"></canvas>
         </div>
 
         <!-- editor -->
@@ -44,14 +45,13 @@
                 <button onclick="onSwitchLine()" class="btn switch"><img src="images/icons/Forme_3.png"> <img
                         src="images/icons/Forme_3_copie.png"></button>
                 <button onclick="onAddLine()" class="btn add-line"><img src="images/icons/+.png"></button>
-                <button onclick="onSwitchLine()" class="btn delete"><img src="images/icons/Forme_4.png"></button>
+                <button onclick="onDeleteText()" class="btn delete"><img src="images/icons/Forme_4.png"></button>
             </div>
 
             <div class="font-section">
                 <button onclick="onChangeTextSize('+')" class="btn font"><img src="images/icons/A+.png"></button>
                 <button onclick="onChangeTextSize('-')" class="btn font"><img src="images/icons/A-.png"></button>
                 <button onclick="onSaveMeme()" class="btn font">Save</button>
-                <button class="btn font">Check</button>
                 <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color"
                     name="txt-color" value="#000000" />
                 </label>
@@ -60,6 +60,10 @@
             <div class="file-section">
                 <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
                 <button onclick="onUploadImg()" class="btn file download">Share </button>
+                
+            </div>
+            <div class="upload-container">
+                <input type="file" class="upload-btn" name="image" onchange="onImgInput(event)" />
             </div>
         </div>
     </section>
@@ -77,9 +81,6 @@
          </div>
 
             <div class="extra-section">
-                <button onclick="onRandomMeme()">i'm flexible</button>
-                <button onclick="onRandomMeme()">i'm flexible</button>
-                <button onclick="onRandomMeme()">i'm flexible</button>
                 <button onclick="onRandomMeme()">i'm flexible</button>
             </div>
 

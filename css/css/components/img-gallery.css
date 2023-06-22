@@ -21,7 +21,6 @@
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     color: white;
     height: 3.8em;
-    cursor: pointer;
 }
 
 .img-gallery .main-screen {
@@ -33,4 +32,24 @@
     background-color: rgba(255, 255, 255, 0.268);
     margin: 0 2%;
     border-radius: 0.8em;
+}
+
+.extra-section {
+    position: absolute;
+    left: 50%;
+    top: 5.5%;
+}
+
+.extra-section button {
+    all: initial;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0.5em;
+    background-color: chartreuse;
+    width: 3.56em;
+    height: 3em;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.388);
+    cursor: pointer;
 }

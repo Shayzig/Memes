@@ -1,5 +1,8 @@
 let gElCanvas
 let gCtx
+
+let gStartPos
+
 const STORAGE_KEY = 'gMeme'
 const gSavedMemes = []
 
@@ -8,11 +11,69 @@ const gSavedMemes = []
 function onInit() {
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
+  resizeCanvas()
   renderGallery()
-  // renderSavedMeme()
+  renderMeme()
+  addMouseListeners()
+}
+
+
+//DRAG & DROP
+function addMouseListeners() {
+  gElCanvas.addEventListener('mousedown', onDown)
+  gElCanvas.addEventListener('mousemove', onMove)
+  gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function onDown(ev) {
+  // Get the ev pos from mouse or touch
+  const pos = getEvPos(ev)
+  if (!isLineClicked(pos)) return
+  // console.log('pos', pos)
+
+  setLineDrag(true)
+  // console.log(gMeme.lines)
+
+  gStartPos = pos
+  console.log('gStartPos', gStartPos)
+
+  document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+  // console.log('Move')
+  let isDrag = getDragingSit()
+  if (!isDrag) return
+  // console.log('drag')
+
+  const pos = getEvPos(ev)
+
+  const dx = pos.x - gStartPos.x
+  const dy = pos.y - gStartPos.y
+  // console.log('dx', dx)
+  // console.log('dy', dy)
+
+  moveLine(dx, dy)
+
+  gStartPos = pos
   renderMeme()
 }
 
+function onUp() {
+  setLineDrag(false)
+  document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+  let pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  }
+  return pos
+}
+
+
+//MEMES GENERAL
 function onMemes() {
   document.querySelector('.main-content').style.display = 'flex'
   document.querySelector('.img-gallery').style.display = 'none'
@@ -29,8 +90,9 @@ function renderMeme() {
   img.onload = function () {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    renderLines()
     renderFrame()
+    renderLines()
+
   }
   img.src = `images/${getMeme().selectedImgId}.jpg`
 }
@@ -67,6 +129,10 @@ function onChangeTextSize(sign) {
 function renderTextValueAfterswitch(line) {
   const elAddText = document.querySelector('.editor #add-text')
   elAddText.value = gMeme.lines[line].txt
+}
+
+function onDeleteText() {
+  deleteText()
 }
 
 
@@ -113,7 +179,6 @@ function drawRect(x, y) {
 
 
 
-
 // DOWNLOAD
 function downloadCanvas(elLink) {
   const data = gElCanvas.toDataURL()
@@ -121,26 +186,11 @@ function downloadCanvas(elLink) {
   elLink.download = 'My Meme'
 }
 
-
-function onClearCanvas() {
-  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-}
-
-
-//CLICK
-function onCanvasClick({ offsetX, offsetY }) {
-
-  if (isTextClicked({ offsetX, offsetY })) {
-    onSwitchLine()
-  }
-}
-
 //RANDOM MEME
 function onRandomMeme() {
   setRandomImg()
   renderMeme()
 }
-
 
 //Saved
 
@@ -224,3 +274,31 @@ function doUploadImg(imgDataUrl, onSuccess) {
   XHR.send(formData)
 }
 
+
+//UPLOAD
+
+function onImgInput(ev) {
+  loadImageFromInput(ev, renderImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+  const reader = new FileReader()
+
+  reader.onload = function (event) {
+    let img = new Image()
+    img.src = event.target.result
+    img.onload = () => onImageReady(img)
+  }
+  reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderImg(img) {
+  gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+}
+
+
+function resizeCanvas() {
+  const elContainer = document.querySelector('.my-canvas')
+  gElCanvas.width = elContainer.offsetWidth
+  gElCanvas.height = elContainer.offsetHeight
+}

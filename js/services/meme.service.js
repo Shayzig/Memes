@@ -10,6 +10,7 @@ let gMeme = {
                 color: 'red',
                 x: 250,
                 y: 100,
+                isDrag: false
 
 
             },
@@ -20,6 +21,7 @@ let gMeme = {
                 color: 'blue',
                 x: 250,
                 y: 350,
+                isDrag: false
             }
         ]
 
@@ -28,6 +30,41 @@ let gMeme = {
 let gImgs = addImgs()
 let isFirstRandom
 let isFirstLineChecked = false
+
+
+//drag and drop
+function isLineClicked(clickedPos) {
+    let xPose = gMeme.lines[gMeme.selectedLineIdx].x
+    let yPose = gMeme.lines[gMeme.selectedLineIdx].y
+
+    // console.log('clickedPose', clickedPos)
+
+    const distance = Math.sqrt((xPose - clickedPos.x) ** 2 + (yPose - clickedPos.y) ** 2)
+    // console.log(distance)
+
+    return distance <= gMeme.lines[gMeme.selectedLineIdx].size
+}
+
+function setLineDrag(isDrag) {
+    gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
+    // console.log(gMeme.lines[gMeme.selectedLineIdx].isDrag)
+}
+
+function moveLine(dx, dy) {
+    gMeme.lines[gMeme.selectedLineIdx].x += dx
+    gMeme.lines[gMeme.selectedLineIdx].y += dy
+    // console.log('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
+}
+
+function  getDragingSit() {
+    return gMeme.lines[gMeme.selectedLineIdx].isDrag
+}
+
+
+
+
+
+
 
 
 
@@ -54,6 +91,12 @@ function setTextValueAfterSwitch(lineText) {
     } else if (lineText === 'secondLine') {
         renderTextValueAfterswitch(1)
     }
+}
+
+function deleteText() {
+    gMeme.lines[gMeme.selectedLineIdx].txt = ''
+    renderMeme()
+    deletePlaceHolder()
 }
 
 //text-color
@@ -138,8 +181,8 @@ function clearText() {
 function renderFlexMeme() {
     gMeme.selectedImgId = getRandomInt(1, 18) //15
     gMeme.selectedLineIdx = getRandomInt(0, 2) //1
-    gMeme.lines[gMeme.selectedLineIdx].size = getRandomInt(21, 50)
-    gMeme.lines[gMeme.selectedLineIdx].txt = makeLorem(4)
+    gMeme.lines[gMeme.selectedLineIdx].size = getRandomInt(15, 35)
+    gMeme.lines[gMeme.selectedLineIdx].txt = makeLorem(3)
 }
 
 function isTextClicked(clickedPos) {
@@ -182,7 +225,7 @@ function setSavedMeme(src, gSavedMemes) {
     gMeme.lines[1].size = userMeme.lines[1].size
     gMeme.lines[0].color = userMeme.lines[0].color
     gMeme.lines[1].color = userMeme.lines[1].color
-    
+
     renderMeme()
 
 
