@@ -37,4 +37,8 @@
     margin-inline-start: 20px;
 }
 
+.navbar-container {
+ margin-inline-end: 5em;
+}
+
 }

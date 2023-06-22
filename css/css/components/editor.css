@@ -20,10 +20,8 @@
     justify-content: center;
     text-align: center;
     border-radius: 0.5em;
-    background-color: chartreuse;
     width: 3.56em;
     height: 3.40em;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.388);
     cursor: pointer;
 }
 
@@ -45,7 +43,7 @@
     justify-content: space-evenly;
 }
 
-.editor .file  {
+.editor .file {
     width: 50%;
     margin: 0.2em 0.7em;
     color: white;
@@ -55,22 +53,34 @@
     padding: 0;
     height: 2.8em;
 }
+
 .editor .file-section .download {
-    background-color:#8f44bb ;
+    background-color: #8f44bb;
     border-bottom: 4px solid #502369;
     border-top: 4px solid #b86ee3;
+    transition: 0.4s;
 }
+
+.editor .file-section .download:hover {
+    background-color: #502369;
+}
+
 .editor .file-section .share {
-    background-color:#1e7cd3 ;
+    background-color: #1e7cd3;
     border-bottom: 4px solid #165c9c;
     border-top: 4px solid#57b2e8;
+    transition: 0.4s;
+}
+
+.editor .file-section .share:hover {
+    background-color:#165c9c;
 }
 
 .editor .font-section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to right, #0f9bb3,#30bb73);
+    background: linear-gradient(to right, #0f9bb3, #30bb73);
     border-radius: 0.7em;
     padding: 0.6em;
 }
@@ -89,7 +99,14 @@
     background-color: #d82b36;
     border-bottom: 4px solid #8c0606;
     border-top: 4px solid #ef6b5b;
+    transition: background-color 0.3s;
 }
+
+.editor .line .delete:hover {
+    background-color: #8c0606;
+    transition: background-color 0.3s;
+}
+
 .editor .line .delete img {
     width: 50%;
     height: 60%;
@@ -99,6 +116,12 @@
     background-color: #3dd254;
     border-bottom: 4px solid #015d33;
     border-top: 4px solid #60d875;
+    transition: background-color 0.3s;
+}
+
+.editor .line .add-line:hover {
+    background-color: #015d33;
+    transition: background-color 0.3s;
 }
 
 .editor .line .add-line img {
@@ -110,16 +133,31 @@
     background-color: #40b1ce;
     border-bottom: 4px solid #048b97;
     border-top: 4px solid #4ebdd5;
+    transition: background-color 0.3s;
+
 }
+
+.editor .line .switch:hover {
+    background-color: #048b97;
+    transition: background-color 0.3s;
+}
+
 .editor .line .switch img {
     width: 40%;
     height: 55%;
 }
 
 .editor .font-section .font {
-    background-color:#ffffff ;
+    background-color: #ffffff;
+    border-bottom: 4px solid #3e7d7a;
+    transition: 0.4s;
+}
+
+.editor .font-section .font:hover {
+    background-color: #d3d3d3;
     border-bottom: 4px solid #3e7d7a;
 }
+
 .editor .font-section .font img {
     width: 60%;
     height: 40%;
@@ -130,6 +168,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .editor .upload-container .upload-btn {
     display: flex;
     padding: 10px;
@@ -137,6 +176,10 @@
     padding-inline-end: 0;
     border-radius: 1em;
     height: 3em;
-    background: linear-gradient(to right, #0f9bb3,#30bb73);
+    background: linear-gradient(to right, #0f9bb3, #30bb73);
 }
 
+.editor .font-section .save img {
+    width: 1.7em;
+    height: 1.7em;
+}
