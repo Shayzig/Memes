@@ -9,7 +9,7 @@ function onInit() {
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   renderGallery()
-  renderSavedMeme()
+  // renderSavedMeme()
   renderMeme()
 }
 
@@ -150,24 +150,34 @@ function onSaved() {
   document.querySelector('.saved-memes').style.display = 'block'
   document.querySelector('body').style.background = 'none'
   document.querySelector('body').style.backgroundColor = '#22252c'
+  renderSavedMeme()
 }
 
 function onSaveMeme() {
+  const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+  gMeme.imgUrl = imgDataUrl
+
   gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
   console.log('gSavedMemes', gSavedMemes)
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
 function renderSavedMeme() {
-//   let memes = loadFromStorage(STORAGE_KEY)
+  let memes = loadFromStorage(STORAGE_KEY)
 
-//   var strHTMLs = memes.map(meme => {
-//     console.log('meme', meme)
-//     return `<img data-id="${meme.selectedImgId}"
-//      onclick="onImgSelect(this.dataset.id)" src="/images/${meme.selectedImgId}.jpg">`
-// })
+  var strHTMLs = memes.map(meme => {
+    let img = new Image()
+    img.src = meme.imgUrl
 
-// document.querySelector('.saved-memes .main-screen').innerHTML = strHTMLs.join('') 
+    return `<img data-id="${meme.selectedImgId}"
+     onclick="onSavedMemeSelect(this.src)" src="${img.src}">`
+  })
+
+  document.querySelector('.saved-memes .main-screen').innerHTML = strHTMLs.join('')
+}
+
+function onSavedMemeSelect(src) {
+  setSavedMeme(src, gSavedMemes)
 }
 
 
@@ -176,47 +186,41 @@ function renderSavedMeme() {
 
 function onUploadImg() {
   // Gets the image from the canvas
-  const imgDataUrl = gElCanvas.toDataURL('image/jpeg') 
+  const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
 
   function onSuccess(uploadedImgUrl) {
-      // Handle some special characters
-      const url = encodeURIComponent(uploadedImgUrl)
-      window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
+    // Handle some special characters
+    const url = encodeURIComponent(uploadedImgUrl)
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&t=${url}`)
   }
-  
+
   // Send the image to the server
   doUploadImg(imgDataUrl, onSuccess)
 }
 
-// Upload the image to a server, get back a URL 
-// call the function onSuccess when done
 function doUploadImg(imgDataUrl, onSuccess) {
-  // Pack the image for delivery
   const formData = new FormData()
   formData.append('img', imgDataUrl)
 
-  // Send a post req with the image to the server
   const XHR = new XMLHttpRequest()
   XHR.onreadystatechange = () => {
-      // If the request is not done, we have no business here yet, so return
-      if (XHR.readyState !== XMLHttpRequest.DONE) return
-      // if the response is not ok, show an error
-      if (XHR.status !== 200) return console.error('Error uploading image')
-      const { responseText: url } = XHR
-      // Same as
-      // const url = XHR.responseText
+    // If the request is not done, we have no business here yet, so return
+    if (XHR.readyState !== XMLHttpRequest.DONE) return
+    // if the response is not ok, show an error
+    if (XHR.status !== 200) return console.error('Error uploading image')
+    const { responseText: url } = XHR
+    // Same as
+    // const url = XHR.responseText
 
-      // If the response is ok, call the onSuccess callback function, 
-      // that will create the link to facebook using the url we got
-      console.log('Got back live url:', url)
-      onSuccess(url)
+    // If the response is ok, call the onSuccess callback function, 
+    // that will create the link to facebook using the url we got
+    console.log('Got back live url:', url)
+    onSuccess(url)
   }
   XHR.onerror = (req, ev) => {
-      console.error('Error connecting to server with request:', req, '\nGot response data:', ev)
+    console.error('Error connecting to server with request:', req, '\nGot response data:', ev)
   }
   XHR.open('POST', '//ca-upload.com/here/upload.php')
   XHR.send(formData)
 }
-
-
 

@@ -88,18 +88,18 @@ function addLine() {
 }
 
 function setSwitchLine() {
-        if (gMeme.selectedLineIdx === 0) {
-            gMeme.selectedLineIdx = 1
-            gMeme.notSelectedLineIdx = 0
+    if (gMeme.selectedLineIdx === 0) {
+        gMeme.selectedLineIdx = 1
+        gMeme.notSelectedLineIdx = 0
 
-            setTextValueAfterSwitch('secondLine')
-        } else if (gMeme.selectedLineIdx === 1) {
-            gMeme.selectedLineIdx = 0
-            gMeme.notSelectedLineIdx = 1
+        setTextValueAfterSwitch('secondLine')
+    } else if (gMeme.selectedLineIdx === 1) {
+        gMeme.selectedLineIdx = 0
+        gMeme.notSelectedLineIdx = 1
 
-            setTextValueAfterSwitch('firstLine')
-        }
-    
+        setTextValueAfterSwitch('firstLine')
+    }
+
 }
 
 function getSelectedLineIdx() {
@@ -123,19 +123,19 @@ function setImageFromGallery(imgId) {
 
 function setRandomImg() {
     if (isFirstRandom) {
-       renderFlexMeme()
-       isFirstRandom = false
+        renderFlexMeme()
+        isFirstRandom = false
     } else {
         clearText()
         renderFlexMeme()
     }
 }
 
-function clearText () {
+function clearText() {
     gMeme.lines[gMeme.selectedLineIdx].txt = ''
 }
 
-function renderFlexMeme () {
+function renderFlexMeme() {
     gMeme.selectedImgId = getRandomInt(1, 18) //15
     gMeme.selectedLineIdx = getRandomInt(0, 2) //1
     gMeme.lines[gMeme.selectedLineIdx].size = getRandomInt(21, 50)
@@ -169,4 +169,25 @@ function getImgs() {
 
 
 //SAVE MEMES
+function setSavedMeme(src, gSavedMemes) {
+
+    console.log(gSavedMemes)
+
+    var userMeme = gSavedMemes.find(meme => meme.imgUrl === src)
+
+    gMeme.selectedImgId = userMeme.selectedImgId
+    gMeme.lines[0].txt = userMeme.lines[0].txt
+    gMeme.lines[1].txt = userMeme.lines[1].txt
+    gMeme.lines[0].size = userMeme.lines[0].size
+    gMeme.lines[1].size = userMeme.lines[1].size
+    gMeme.lines[0].color = userMeme.lines[0].color
+    gMeme.lines[1].color = userMeme.lines[1].color
+    
+    renderMeme()
+
+
+
+}
+
+
 
