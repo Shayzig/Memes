@@ -1,0 +1,45 @@
+.emoji-section {
+    display: flex;
+    justify-content: space-evenly;
+    background: linear-gradient(to right, #0f9bb3, #30bb73);
+    border-radius: 0.6em;
+    box-shadow: 0 0 10px #30bb7357;
+    box-shadow: 0 0 3px black;
+    border: 1px solid rgba(0, 0, 0, 0.532);
+}
+
+.emoji-section .emoji-btn {
+    all: initial;
+    font-size: 4em;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.emoji-controls {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to right, #0f9bb3, #30bb73);
+    border-radius: 0.6em;
+    box-shadow: 0 0 10px #30bb7357;
+    width: 200px;
+    margin: -4px auto;
+    z-index: 1;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+    
+
+}
+
+.emoji-controls button {
+    all: initial;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 0.5em 0.6em;
+    width: 50px;
+    height: 30px;
+    border-radius: 0.6em;
+    box-shadow: 0 0 4px grey;
+    cursor: pointer;
+}

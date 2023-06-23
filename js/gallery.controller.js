@@ -9,7 +9,6 @@ function onGallery() {
 
 function renderGallery() {
     let imgs = getImgs()
-    ('imgs', imgs)
 
     var strHTMLs = imgs.map(img => {
         return `<img data-id="${img.id}" onclick="onImgSelect(this.dataset.id)" src="${img.url}">`

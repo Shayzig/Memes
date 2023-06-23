@@ -2,6 +2,13 @@ let gElCanvas
 let gCtx
 
 let gStartPos
+let gEmojiStartPos
+let gIsEmojiActive = false
+let gUserEmoji = ''
+console.log('gIsEmojisActive', gIsEmojiActive)
+
+
+
 
 const STORAGE_KEY = 'gMeme'
 const gSavedMemes = []
@@ -29,44 +36,56 @@ function addMouseListeners() {
 
 
 function onDown(ev) {
-  // Get the ev pos from mouse or touch
   const pos = getEvPos(ev)
-  if (!isLineClicked(pos)) return
-  // ('pos', pos)
+  //LINE
+  if (isLineClicked(pos)) {
+    setLineDrag(true)
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+    //EMOJI
+  } else if (isEmojiClicked(pos) && gIsEmojiActive) {
+    setEmojiDrag(true)
+    gEmojiStartPos = pos
+    document.body.style.cursor = 'grabbing'
+  } else return
 
-  setLineDrag(true)
-  // (gMeme.lines)
-
-  gStartPos = pos
-  // ('gStartPos', gStartPos)
-
-  document.body.style.cursor = 'grabbing'
 }
+
+
 function onMove(ev) {
-  // ('Move')
   const hoverPos = getEvPos(ev)
-
-  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab'
-
-  let isDrag = getDragingSit()
-  if (!isDrag) return
-  // ('drag')
-
   const pos = getEvPos(ev)
 
-  const dx = pos.x - gStartPos.x
-  const dy = pos.y - gStartPos.y
-  // ('dx', dx)
-  // ('dy', dy)
+  let isEmojiDrag = getEmojiDragSit()
+  let isDrag = getDragingSit()
 
-  moveLine(dx, dy)
+  document.body.style.cursor = isLineClicked(hoverPos) || isEmojiClicked(hoverPos) ? 'grabbing' : 'grab'
 
-  gStartPos = pos
-  renderMeme()
+  if (isEmojiDrag) {
+    const edx = pos.x - gEmojiStartPos.x
+    const edy = pos.y - gEmojiStartPos.y
+
+    moveEmoji(edx, edy)
+
+    gEmojiStartPos = pos
+
+    renderMeme()
+  } else if (isDrag) {
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+
+    moveLine(dx, dy)
+
+    gStartPos = pos
+
+    renderMeme()
+  }
 }
+
 
 function onUp() {
   setLineDrag(false)
+  setEmojiDrag(false)
   document.body.style.cursor = 'grab'
 }
 
@@ -89,19 +108,21 @@ function onMemes() {
 }
 
 function renderMeme() {
-
   onMemes()
 
-  var img = new Image()
+  var img = new Image();
   img.onload = function () {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
     renderFrame()
     renderLines()
-
+    if (gIsEmojiActive) {
+      onRenderEmoji(gUserEmoji)
+    }
   }
-  img.src = `images/${getMeme().selectedImgId}.jpg`
+  img.src = `images/${getMeme().selectedImgId}.jpg`;
 }
+
 
 function renderLines() {
   let gMeme = getMeme()
@@ -268,12 +289,12 @@ function doUploadImg(imgDataUrl, onSuccess) {
     // if the response is not ok, show an error
     if (XHR.status !== 200) return console.error('Error uploading image')
     const { responseText: url } = XHR
-    // Same as
-    // const url = XHR.responseText
+      // Same as
+      // const url = XHR.responseText
 
-    // If the response is ok, call the onSuccess callback function, 
-    // that will create the link to facebook using the url we got
-    ('Got back live url:', url)
+      // If the response is ok, call the onSuccess callback function, 
+      // that will create the link to facebook using the url we got
+      ('Got back live url:', url)
     onSuccess(url)
   }
   XHR.onerror = (req, ev) => {
@@ -310,5 +331,33 @@ function resizeCanvas() {
   const elContainer = document.querySelector('.my-canvas')
   gElCanvas.width = elContainer.offsetWidth
   gElCanvas.height = elContainer.offsetHeight
+}
+
+
+//EMOJI
+
+function onRenderEmoji(userEmoji) {
+
+  gUserEmoji = userEmoji
+
+  var fontSize = getGemoji().size
+  gCtx.font = fontSize + 'px Arial'
+
+  var emoji = gUserEmoji
+  var x = getGemoji().x
+  var y = getGemoji().y
+  gCtx.fillText(emoji, x, y)
+
+  gIsEmojiActive = true
+}
+
+function onDeleteEmoji() {
+  gIsEmojiActive = false
+  renderMeme()
+}
+
+function onChangeEmojiSize (sizeOparetor) {
+  changeEmojiSize (sizeOparetor)
+  renderMeme()
 }
 

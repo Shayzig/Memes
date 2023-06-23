@@ -39,7 +39,8 @@
         <div class="editor">
 
             <label for="text">
-                <input id="add-text" type="text" name="add-text" placeholder="Write your text!" oninput="setLineText(this.value)" />
+                <input id="add-text" type="text" name="add-text" placeholder="Write your text!"
+                    oninput="setLineText(this.value)" />
             </label>
             <div class="line">
                 <button onclick="onSwitchLine()" class="btn switch"><img src="images/icons/Forme_3.png"> <img
@@ -56,6 +57,18 @@
                 <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color"
                     name="txt-color" value="#000000" />
                 </label>
+            </div>
+
+            <div class="emoji-section">
+                <button class="emoji-btn"  onclick="onRenderEmoji('😀')" class="btn font">😀</button>
+                <button class="emoji-btn"  onclick="onRenderEmoji('😍')" class="btn font">😍</button>
+                <button class="emoji-btn"  onclick="onRenderEmoji('😇')" class="btn font">😇</button>
+                <button class="emoji-btn"  onclick="onDeleteEmoji()" class="btn font"><img src="images/icons/Forme_4.png"></button>
+            </div>
+            
+            <div class="emoji-controls">
+                <button class="emoji-btn"  onclick="onChangeEmojiSize('-')" class="btn font">-</button>
+                <button class="emoji-btn"  onclick="onChangeEmojiSize('+')" class="btn font">+</button>
             </div>
 
             <div class="file-section">

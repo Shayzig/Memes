@@ -27,6 +27,16 @@ let gMeme = {
 
 }
 
+
+
+let gEmoji = {
+    size: 50,
+    x: 250,
+    y: 250,
+    isDrag: false,
+    isActive: false
+}
+
 let gFilterBy = ''
 
 let gImgs = addImgs()
@@ -62,10 +72,22 @@ function isLineClicked(clickedPos) {
 
     return distance <= gMeme.lines[gMeme.selectedLineIdx].size
 }
+function isEmojiClicked(clickedPos) {
+    let emojiPoseX = gEmoji.x
+    let emojiPoseY = gEmoji.y
+
+
+    const distance = Math.sqrt((emojiPoseX - clickedPos.x) ** 2 + (emojiPoseY - clickedPos.y) ** 2)
+
+    return distance <= gEmoji.size
+}
+
 
 function setLineDrag(isDrag) {
     gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
-    // (gMeme.lines[gMeme.selectedLineIdx].isDrag)
+}
+function setEmojiDrag(isDrag) {
+    gEmoji.isDrag = isDrag
 }
 
 function moveLine(dx, dy) {
@@ -74,13 +96,26 @@ function moveLine(dx, dy) {
     // ('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
 }
 
+function moveEmoji(dx, dy) {
+    gEmoji.x += dx
+    gEmoji.y += dy
+}
+
 function getDragingSit() {
     return gMeme.lines[gMeme.selectedLineIdx].isDrag
+}
+
+function getEmojiDragSit() {
+    return gEmoji.isDrag
 }
 
 
 function getMeme() {
     return gMeme
+}
+
+function getGemoji() {
+    return gEmoji
 }
 
 
@@ -121,10 +156,10 @@ function getTextColor(line) {
 }
 
 //font-size
-function setTextSize(sign) {
-    if (sign === '+') {
+function setTextSize(signOperator) {
+    if (signOperator === '+' && gMeme.lines[gMeme.selectedLineIdx].size < 50) {
         gMeme.lines[gMeme.selectedLineIdx].size += 5
-    } else if (sign === '-') {
+    } else if (signOperator === '-' && gMeme.lines[gMeme.selectedLineIdx].size > 20) {
         gMeme.lines[gMeme.selectedLineIdx].size -= 5
     }
     renderMeme()
@@ -248,6 +283,15 @@ function setSavedMeme(src, savedMemes) {
 
 function setFilterBy(filterBy) {
     gFilterBy = filterBy
+}
+
+//EMOJI
+function changeEmojiSize(sizeOperator) {
+    if (sizeOperator === '+' && gEmoji.size < 350) {
+        gEmoji.size += 5
+    } else if (sizeOperator === '-' && gEmoji.size > 20) {
+        gEmoji.size -= 5
+    }
 }
 
 
