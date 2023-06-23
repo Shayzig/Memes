@@ -5,8 +5,8 @@ let gMeme = {
     lines:
         [
             {
-                txt: '',
-                size: 40,
+                txt: 'Write your text!',
+                size: 30,
                 color: 'red',
                 x: 250,
                 y: 100,
@@ -27,7 +27,7 @@ let gMeme = {
 
 }
 
-let gFilterBy
+let gFilterBy = ''
 
 let gImgs = addImgs()
 addKeyWords()
@@ -55,23 +55,23 @@ function isLineClicked(clickedPos) {
     let xPose = gMeme.lines[gMeme.selectedLineIdx].x
     let yPose = gMeme.lines[gMeme.selectedLineIdx].y
 
-    // console.log('clickedPose', clickedPos)
+    // ('clickedPose', clickedPos)
 
     const distance = Math.sqrt((xPose - clickedPos.x) ** 2 + (yPose - clickedPos.y) ** 2)
-    // console.log(distance)
+    // (distance)
 
     return distance <= gMeme.lines[gMeme.selectedLineIdx].size
 }
 
 function setLineDrag(isDrag) {
     gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
-    // console.log(gMeme.lines[gMeme.selectedLineIdx].isDrag)
+    // (gMeme.lines[gMeme.selectedLineIdx].isDrag)
 }
 
 function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
     gMeme.lines[gMeme.selectedLineIdx].y += dy
-    // console.log('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
+    // ('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
 }
 
 function getDragingSit() {
@@ -216,18 +216,17 @@ function addImgs() {
     }
     return res
 }
-
 function getImgs() {
-    return gImgs
-    // var imgs = gImgs.filter(img =>
-    //     img.keywords[0].toLowerCase().includes(gFilterBy.toLowerCase())
-    // )
+    var imgs = gImgs.filter(img =>
+        (img.keywords.join(',').includes(gFilterBy.toLowerCase()))
+    )
+    return imgs
 }
 
 //SAVE MEMES
 function setSavedMeme(src, savedMemes) {
 
-    console.log(savedMemes)
+    (savedMemes)
 
     var userMeme = savedMemes.find(meme => meme.imgUrl === src)
 

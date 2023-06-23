@@ -8,6 +8,7 @@
     width: 200px;
     border-radius: 1em;
     margin: 1em;
+    cursor: pointer;
 }
 
 .saved-memes .header {
@@ -44,3 +45,4 @@
 .saved-memes .main-screen .hello {
     margin: 300px;
 }
+

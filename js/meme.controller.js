@@ -14,7 +14,6 @@ function onInit() {
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   resizeCanvas()
-  renderGallery()
   renderMeme()
   addMouseListeners()
 }
@@ -27,33 +26,38 @@ function addMouseListeners() {
   gElCanvas.addEventListener('mouseup', onUp)
 }
 
+
+
 function onDown(ev) {
   // Get the ev pos from mouse or touch
   const pos = getEvPos(ev)
   if (!isLineClicked(pos)) return
-  // console.log('pos', pos)
+  // ('pos', pos)
 
   setLineDrag(true)
-  // console.log(gMeme.lines)
+  // (gMeme.lines)
 
   gStartPos = pos
-  console.log('gStartPos', gStartPos)
+  // ('gStartPos', gStartPos)
 
   document.body.style.cursor = 'grabbing'
 }
-
 function onMove(ev) {
-  // console.log('Move')
+  // ('Move')
+  const hoverPos = getEvPos(ev)
+
+  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab'
+
   let isDrag = getDragingSit()
   if (!isDrag) return
-  // console.log('drag')
+  // ('drag')
 
   const pos = getEvPos(ev)
 
   const dx = pos.x - gStartPos.x
   const dy = pos.y - gStartPos.y
-  // console.log('dx', dx)
-  // console.log('dy', dy)
+  // ('dx', dx)
+  // ('dy', dy)
 
   moveLine(dx, dy)
 
@@ -210,7 +214,7 @@ function onSaveMeme() {
   gMeme.imgUrl = imgDataUrl
 
   gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
-  // console.log('gSavedMemes', gSavedMemes)
+  // ('gSavedMemes', gSavedMemes)
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
@@ -269,7 +273,7 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
     // If the response is ok, call the onSuccess callback function, 
     // that will create the link to facebook using the url we got
-    console.log('Got back live url:', url)
+    ('Got back live url:', url)
     onSuccess(url)
   }
   XHR.onerror = (req, ev) => {
