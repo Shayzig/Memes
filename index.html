@@ -32,7 +32,7 @@
         <!-- canvas -->
         <div class="my-canvas">
             <!-- onclick="onCanvasClick(event) -->
-            <canvas width="500" height="500"></canvas>
+            <canvas id="gElCanvas" tabindex="1" width="500" height="500"></canvas>
         </div>
 
         <!-- editor -->
@@ -40,7 +40,7 @@
 
             <label for="text">
                 <input id="add-text" type="text" name="add-text" placeholder="Write your text!"
-                    oninput="setLineText(this.value)" />
+                    oninput="onAddText(this.value)" />
             </label>
             <div class="line">
                 <button onclick="onSwitchLine()" class="btn switch"><img src="images/icons/Forme_3.png"> <img

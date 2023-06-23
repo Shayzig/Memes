@@ -1,3 +1,4 @@
+
 let gMeme = {
     selectedImgId: 10,
     selectedLineIdx: 0,
@@ -10,7 +11,8 @@ let gMeme = {
                 color: 'red',
                 x: 250,
                 y: 100,
-                isDrag: false
+                isDrag: false,
+                isEditing: false
 
 
             },
@@ -21,7 +23,8 @@ let gMeme = {
                 color: 'blue',
                 x: 250,
                 y: 350,
-                isDrag: false
+                isDrag: false,
+                isEditing: false
             }
         ]
 
@@ -36,6 +39,8 @@ let gEmoji = {
     isDrag: false,
     isActive: false
 }
+
+
 
 let gFilterBy = ''
 
@@ -86,6 +91,7 @@ function isEmojiClicked(clickedPos) {
 function setLineDrag(isDrag) {
     gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
 }
+
 function setEmojiDrag(isDrag) {
     gEmoji.isDrag = isDrag
 }
@@ -118,17 +124,6 @@ function getGemoji() {
     return gEmoji
 }
 
-
-// write text by user
-function setLineText(userText) {
-    if (gMeme.selectedLineIdx === 0) {
-        gMeme.lines[0].txt = userText
-    } else {
-        gMeme.lines[1].txt = userText
-    }
-    // saveUserText(userText)
-    renderMeme()
-}
 
 //set correct text value in the input
 function setTextValueAfterSwitch(lineText) {
@@ -260,9 +255,6 @@ function getImgs() {
 
 //SAVE MEMES
 function setSavedMeme(src, savedMemes) {
-
-    (savedMemes)
-
     var userMeme = savedMemes.find(meme => meme.imgUrl === src)
 
     gMeme.selectedImgId = userMeme.selectedImgId
@@ -295,3 +287,13 @@ function changeEmojiSize(sizeOperator) {
 }
 
 
+function setLineEdit(isEdit) {
+    gMeme.lines[gMeme.selectedLineIdx].isEdit = isEdit
+}
+
+function getMemePose () {
+    let res = {}
+    res.x = gMeme.lines[gMeme.selectedLineIdx].x
+    res.y = gMeme.lines[gMeme.selectedLineIdx].y
+    return res
+}

@@ -5,7 +5,8 @@ let gStartPos
 let gEmojiStartPos
 let gIsEmojiActive = false
 let gUserEmoji = ''
-console.log('gIsEmojisActive', gIsEmojiActive)
+
+let isFirstEdit = true
 
 
 
@@ -31,9 +32,28 @@ function addMouseListeners() {
   gElCanvas.addEventListener('mousedown', onDown)
   gElCanvas.addEventListener('mousemove', onMove)
   gElCanvas.addEventListener('mouseup', onUp)
+  gElCanvas.addEventListener('keydown', keyDown)
 }
 
+function keyDown(event) {
+  let memeText = getMeme().lines[gMeme.selectedLineIdx].txt
+  let cursorPos = memeText.length
 
+  if (isFirstEdit && event.key === 'Backspace') {
+    memeText = ''
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
+   
+  } else if (event.key === 'Backspace') {
+    memeText = memeText.substring(0, cursorPos - 1)
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
+
+  } else if (event.key.length === 1) {
+    memeText += event.key
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
+  }
+  
+  renderMeme()
+}
 
 function onDown(ev) {
   const pos = getEvPos(ev)
@@ -162,6 +182,17 @@ function onDeleteText() {
   deleteText()
 }
 
+function onAddText(userText) {
+  if (gMeme.selectedLineIdx === 0) {
+      gMeme.lines[0].txt = userText
+  } else {
+      gMeme.lines[1].txt = userText
+  }
+  // saveUserText(userText)
+  isFirstEdit = false
+  renderMeme()
+}
+
 
 
 
@@ -235,7 +266,8 @@ function onSaveMeme() {
   gMeme.imgUrl = imgDataUrl
 
   gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
-  // ('gSavedMemes', gSavedMemes)
+  gEmojis.push(JSON.parse(JSON.stringify(gEmoji)))
+
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
@@ -356,8 +388,16 @@ function onDeleteEmoji() {
   renderMeme()
 }
 
-function onChangeEmojiSize (sizeOparetor) {
-  changeEmojiSize (sizeOparetor)
+function onChangeEmojiSize(sizeOparetor) {
+  changeEmojiSize(sizeOparetor)
   renderMeme()
 }
+
+
+
+
+
+
+
+
 
