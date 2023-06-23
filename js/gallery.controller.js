@@ -11,7 +11,7 @@ function renderGallery() {
     console.log('imgs', imgs)
     
     var strHTMLs = imgs.map(img => {
-        return `<img data-id="${img.id}" onclick="onImgSelect(this.dataset.id)" src="/${img.url}">`
+        return `<img data-id="${img.id}" onclick="onImgSelect(this.dataset.id)" src="${img.url}">`
     })
 
     const elGallery = document.querySelector('.img-gallery .main-screen').innerHTML = strHTMLs.join('')
