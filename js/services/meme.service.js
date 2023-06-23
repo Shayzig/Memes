@@ -225,11 +225,11 @@ function getImgs() {
 }
 
 //SAVE MEMES
-function setSavedMeme(src, gSavedMemes) {
+function setSavedMeme(src, savedMemes) {
 
-    console.log(gSavedMemes)
+    console.log(savedMemes)
 
-    var userMeme = gSavedMemes.find(meme => meme.imgUrl === src)
+    var userMeme = savedMemes.find(meme => meme.imgUrl === src)
 
     gMeme.selectedImgId = userMeme.selectedImgId
     gMeme.lines[0].txt = userMeme.lines[0].txt

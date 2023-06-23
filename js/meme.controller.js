@@ -9,6 +9,8 @@ const gSavedMemes = []
 
 
 function onInit() {
+  let memes = loadFromStorage(STORAGE_KEY)
+
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
   resizeCanvas()
@@ -208,12 +210,14 @@ function onSaveMeme() {
   gMeme.imgUrl = imgDataUrl
 
   gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
-  console.log('gSavedMemes', gSavedMemes)
+  // console.log('gSavedMemes', gSavedMemes)
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
 function renderSavedMeme() {
+
   let memes = loadFromStorage(STORAGE_KEY)
+
 
   var strHTMLs = memes.map(meme => {
     let img = new Image()
@@ -227,7 +231,8 @@ function renderSavedMeme() {
 }
 
 function onSavedMemeSelect(src) {
-  setSavedMeme(src, gSavedMemes)
+  let memes = loadFromStorage('gMeme')
+  setSavedMeme(src, memes)
 }
 
 
