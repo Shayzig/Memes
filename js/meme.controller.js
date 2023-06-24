@@ -12,7 +12,7 @@ const gSavedMemes = []
 
 
 
-const keywordCount = {};
+const keywordCount = {}
 
 function onInit() {
   let memes = loadFromStorage(STORAGE_KEY)
@@ -46,27 +46,27 @@ function addMouseListeners() {
 }
 
 function keyDown(event) {
-  let memeText = getMeme().lines[gMeme.selectedLineIdx].txt;
-  let cursorPos = memeText.length;
+  let memeText = getMeme().lines[gMeme.selectedLineIdx].txt
+  let cursorPos = memeText.length
 
   if (event.key === 'Backspace' && isEmojiLastChar) {
-    memeText = memeText.substring(0, cursorPos - 2);
+    memeText = memeText.substring(0, cursorPos - 2)
   }
   if (isFirstEdit && event.key === 'Backspace') {
-    memeText = '';
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
+    memeText = ''
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
   } else if (event.key === 'Backspace') {
-    memeText = memeText.substring(0, cursorPos - 1);
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
+    memeText = memeText.substring(0, cursorPos - 1)
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
   } else if (event.key.length === 1) {
-    if (memeText.length === 14) return;
-    memeText += event.key;
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
-    isFirstEdit = false;
-    isEmojiLastChar = false;
+    if (memeText.length === 14) return
+    memeText += event.key
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
+    isFirstEdit = false
+    isEmojiLastChar = false
   }
 
-  renderMeme();
+  renderMeme()
 }
 
 
@@ -84,20 +84,20 @@ function onDown(ev) {
 
 
 function onMove(ev) {
-  const hoverPos = getEvPos(ev);
-  const pos = getEvPos(ev);
-  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab';
+  const hoverPos = getEvPos(ev)
+  const pos = getEvPos(ev)
+  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab'
 
-  let isLineDrag = getDragingSit();
+  let isLineDrag = getDragingSit()
   if (isLineDrag) {
-    const dx = pos.x - gStartPos.x;
-    const dy = pos.y - gStartPos.y;
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
 
-    moveLine(dx, dy);
+    moveLine(dx, dy)
 
-    gStartPos = pos;
+    gStartPos = pos
 
-    renderMeme();
+    renderMeme()
   }
 }
 
@@ -128,7 +128,7 @@ function onMemes() {
 function renderMeme() {
   onMemes()
 
-  var img = new Image();
+  var img = new Image()
   img.onload = function () {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
@@ -138,7 +138,7 @@ function renderMeme() {
     }
     renderLines()
   }
-  img.src = `images/${getMeme().selectedImgId}.jpg`;
+  img.src = `images/${getMeme().selectedImgId}.jpg`
 }
 
 
@@ -146,7 +146,7 @@ function renderLines() {
   let gMeme = getMeme()
   gMeme.lines.forEach(line => {
     drawText(line.txt, line.color, line.size, line.x, line.y)
-  });
+  })
 }
 
 
@@ -265,7 +265,7 @@ function onSaveMeme() {
     gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
     
     saveToStorage(STORAGE_KEY, gSavedMemes)
-  }, 100);
+  }, 100)
   openDialog()
 
 }
