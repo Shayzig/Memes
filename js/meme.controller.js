@@ -2,11 +2,14 @@ let gElCanvas
 let gCtx
 
 let gStartPos
-let gEmojiStartPos
-let gIsEmojiActive = false
-let gUserEmoji = ''
+// let gEmojiStartPos
+// let gIsEmojiActive = false
+// let gUserEmoji = ''
+let isEmojiLastChar = false
+
 
 let isFirstEdit = true
+let isEditMode = false
 
 
 
@@ -39,10 +42,13 @@ function keyDown(event) {
   let memeText = getMeme().lines[gMeme.selectedLineIdx].txt
   let cursorPos = memeText.length
 
+  if (event.key === 'Backspace' && isEmojiLastChar) {
+    memeText = memeText.substring(0, cursorPos - 2)
+  }
   if (isFirstEdit && event.key === 'Backspace') {
     memeText = ''
     gMeme.lines[gMeme.selectedLineIdx].txt = memeText
-   
+
   } else if (event.key === 'Backspace') {
     memeText = memeText.substring(0, cursorPos - 1)
     gMeme.lines[gMeme.selectedLineIdx].txt = memeText
@@ -50,8 +56,10 @@ function keyDown(event) {
   } else if (event.key.length === 1) {
     memeText += event.key
     gMeme.lines[gMeme.selectedLineIdx].txt = memeText
+    isFirstEdit = false
+    isEmojiLastChar = false
   }
-  
+
   renderMeme()
 }
 
@@ -59,16 +67,12 @@ function onDown(ev) {
   const pos = getEvPos(ev)
   //LINE
   if (isLineClicked(pos)) {
+    isEditMode = true
+    renderMeme()
     setLineDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
-    //EMOJI
-  } else if (isEmojiClicked(pos) && gIsEmojiActive) {
-    setEmojiDrag(true)
-    gEmojiStartPos = pos
-    document.body.style.cursor = 'grabbing'
   } else return
-
 }
 
 
@@ -76,21 +80,11 @@ function onMove(ev) {
   const hoverPos = getEvPos(ev)
   const pos = getEvPos(ev)
 
-  let isEmojiDrag = getEmojiDragSit()
   let isDrag = getDragingSit()
 
-  document.body.style.cursor = isLineClicked(hoverPos) || isEmojiClicked(hoverPos) ? 'grabbing' : 'grab'
+  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab'
 
-  if (isEmojiDrag) {
-    const edx = pos.x - gEmojiStartPos.x
-    const edy = pos.y - gEmojiStartPos.y
-
-    moveEmoji(edx, edy)
-
-    gEmojiStartPos = pos
-
-    renderMeme()
-  } else if (isDrag) {
+  if (isDrag) {
     const dx = pos.x - gStartPos.x
     const dy = pos.y - gStartPos.y
 
@@ -134,11 +128,11 @@ function renderMeme() {
   img.onload = function () {
     gElCanvas.height = (img.naturalHeight / img.naturalWidth) * gElCanvas.width
     gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
-    renderFrame()
-    renderLines()
-    if (gIsEmojiActive) {
-      onRenderEmoji(gUserEmoji)
+
+    if (isEditMode) {
+      renderFrame()
     }
+    renderLines()
   }
   img.src = `images/${getMeme().selectedImgId}.jpg`;
 }
@@ -155,7 +149,7 @@ function renderLines() {
 // TEXT
 function drawText(text, color, size, x, y) {
   gCtx.lineWidth = 2
-  gCtx.strokeStyle = 'brown'
+  gCtx.strokeStyle = 'black'
   gCtx.fillStyle = color
   gCtx.font = `${size}px Arial`
   gCtx.textAlign = 'center'
@@ -184,12 +178,13 @@ function onDeleteText() {
 
 function onAddText(userText) {
   if (gMeme.selectedLineIdx === 0) {
-      gMeme.lines[0].txt = userText
+    gMeme.lines[0].txt = userText
   } else {
-      gMeme.lines[1].txt = userText
+    gMeme.lines[1].txt = userText
   }
-  // saveUserText(userText)
   isFirstEdit = false
+  isEmojiLastChar = false
+  console.log('isEmojiLastChar', isEmojiLastChar)
   renderMeme()
 }
 
@@ -224,8 +219,12 @@ function renderFrame() {
 function drawRect(x, y) {
   const rectWidth = 380;
   const rectHeight = 80;
-  const rectX = x - 188;
-  const rectY = y - 42;
+  const text = getMeme().lines[gMeme.selectedLineIdx].txt;
+  const textWidth = gCtx.measureText(text).width;
+  const textHeight = parseInt(gCtx.font);
+
+  const rectX = x - rectWidth / 2;
+  const rectY = y - rectHeight / 2;
 
   gCtx.strokeStyle = 'transparent';
   gCtx.fillStyle = 'rgba(255, 255, 255, 0.2)';
@@ -233,7 +232,38 @@ function drawRect(x, y) {
   gCtx.fillRect(rectX, rectY, rectWidth, rectHeight);
   gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight);
   gCtx.setLineDash([]);
+
+  const cubeSize = 10;
+  const cubeOffset = cubeSize * 1.2;
+
+  // Top cube
+  gCtx.fillStyle = 'black';
+  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY - cubeOffset, cubeSize, cubeSize);
+
+  // Right cube
+  gCtx.fillRect(rectX + rectWidth + cubeOffset, rectY + rectHeight / 2 - cubeSize / 2, cubeSize, cubeSize);
+
+  // Bottom cube
+  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY + rectHeight + cubeOffset, cubeSize, cubeSize);
+
+  // Left cube
+  gCtx.fillRect(rectX - cubeOffset, rectY + rectHeight / 2 - cubeSize / 2, cubeSize, cubeSize);
+
+  // Additional cube at the top
+  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY - cubeOffset - cubeOffset, cubeSize, cubeSize);
+
+  // Connecting line
+  gCtx.beginPath();
+  gCtx.moveTo(rectX + rectWidth / 2, rectY - cubeOffset);
+  gCtx.lineTo(rectX + rectWidth / 2, rectY - cubeOffset - cubeOffset);
+  gCtx.stroke();
 }
+
+
+
+
+
+
 
 
 
@@ -266,7 +296,6 @@ function onSaveMeme() {
   gMeme.imgUrl = imgDataUrl
 
   gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
-  gEmojis.push(JSON.parse(JSON.stringify(gEmoji)))
 
   saveToStorage(STORAGE_KEY, gSavedMemes)
 }
@@ -369,27 +398,11 @@ function resizeCanvas() {
 //EMOJI
 
 function onRenderEmoji(userEmoji) {
-
-  gUserEmoji = userEmoji
-
-  var fontSize = getGemoji().size
-  gCtx.font = fontSize + 'px Arial'
-
-  var emoji = gUserEmoji
-  var x = getGemoji().x
-  var y = getGemoji().y
-  gCtx.fillText(emoji, x, y)
-
-  gIsEmojiActive = true
-}
-
-function onDeleteEmoji() {
-  gIsEmojiActive = false
-  renderMeme()
-}
-
-function onChangeEmojiSize(sizeOparetor) {
-  changeEmojiSize(sizeOparetor)
+  gMeme.lines[gMeme.selectedLineIdx].txt += userEmoji
+  isFirstEdit = false
+  isEmojiLastChar = true
+  isEditMode = true
+  document.addEventListener('keydown', keyDown)
   renderMeme()
 }
 

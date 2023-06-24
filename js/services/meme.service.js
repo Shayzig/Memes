@@ -67,27 +67,23 @@ let isFirstLineChecked = false
 
 //drag and drop
 function isLineClicked(clickedPos) {
-    let xPose = gMeme.lines[gMeme.selectedLineIdx].x
-    let yPose = gMeme.lines[gMeme.selectedLineIdx].y
-
-    // ('clickedPose', clickedPos)
-
-    const distance = Math.sqrt((xPose - clickedPos.x) ** 2 + (yPose - clickedPos.y) ** 2)
-    // (distance)
-
-    return distance <= gMeme.lines[gMeme.selectedLineIdx].size
+    const line = gMeme.lines[gMeme.selectedLineIdx]
+  
+    gCtx.font = `${line.size}px Arial`;
+    const textWidth = gCtx.measureText(line.txt).width
+    const textHeight = line.size;
+  
+    const rectX = line.x - textWidth / 2
+    const rectY = line.y - textHeight / 2
+  
+    return (
+      clickedPos.x >= rectX &&
+      clickedPos.x <= rectX + textWidth &&
+      clickedPos.y >= rectY &&
+      clickedPos.y <= rectY + textHeight
+    )
 }
-function isEmojiClicked(clickedPos) {
-    let emojiPoseX = gEmoji.x
-    let emojiPoseY = gEmoji.y
-
-
-    const distance = Math.sqrt((emojiPoseX - clickedPos.x) ** 2 + (emojiPoseY - clickedPos.y) ** 2)
-
-    return distance <= gEmoji.size
-}
-
-
+  
 function setLineDrag(isDrag) {
     gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
 }
@@ -99,20 +95,10 @@ function setEmojiDrag(isDrag) {
 function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
     gMeme.lines[gMeme.selectedLineIdx].y += dy
-    // ('x',  gMeme.lines[gMeme.selectedLineIdx].x, 'y',  gMeme.lines[gMeme.selectedLineIdx].y);
-}
-
-function moveEmoji(dx, dy) {
-    gEmoji.x += dx
-    gEmoji.y += dy
 }
 
 function getDragingSit() {
     return gMeme.lines[gMeme.selectedLineIdx].isDrag
-}
-
-function getEmojiDragSit() {
-    return gEmoji.isDrag
 }
 
 
@@ -255,22 +241,17 @@ function getImgs() {
 
 //SAVE MEMES
 function setSavedMeme(src, savedMemes) {
-    var userMeme = savedMemes.find(meme => meme.imgUrl === src)
-
+    const userMeme = savedMemes.find(meme => meme.imgUrl === src)
+  
+    userMeme.lines.forEach((line, index) => {
+      const { txt, size, color, x, y } = line
+      gMeme.lines[index] = { txt, size, color, x, y }
+    })
+  
     gMeme.selectedImgId = userMeme.selectedImgId
-    gMeme.lines[0].txt = userMeme.lines[0].txt
-    gMeme.lines[1].txt = userMeme.lines[1].txt
-    gMeme.lines[0].size = userMeme.lines[0].size
-    gMeme.lines[1].size = userMeme.lines[1].size
-    gMeme.lines[0].color = userMeme.lines[0].color
-    gMeme.lines[1].color = userMeme.lines[1].color
-
     renderMeme()
-
-
-
 }
-
+  
 //FILTER 
 
 function setFilterBy(filterBy) {
