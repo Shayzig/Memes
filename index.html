@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://kit.fontawesome.com/42680f6e5e.js" crossorigin="anonymous"></script>
 </head>
 <link rel="stylesheet" href="css/css/styles.css">
 <title>memes</title>
@@ -21,11 +19,15 @@
     <section class="main-content">
 
         <header>
-            <div onclick="onMemes()" class="logo">memes</div>
+            <div data-trans="title" onclick="onMemes()" class="logo">memes</div>
             <div class="navbar-container">
-                <div onclick="onGallery()" class="gallery">Gallery</div>
-                <div onclick="onSaved()" class="saved">Saved</div>
-                <div class="About">About</div>
+                <div data-trans="gallery" onclick="onGallery()" class="gallery">Gallery</div>
+                <div data-trans="saved" onclick="onSaved()" class="saved">Saved</div>
+                <div data-trans="about" class="About">About</div>
+                <select class="langSelect" onchange="onSetLang(this.value)">
+                    <option value="en" selected>English</option>
+                    <option value="he">עברית</option>
+                </select>
             </div>
         </header>
 
@@ -39,7 +41,7 @@
         <div class="editor">
 
             <label for="text">
-                <input id="add-text" type="text" name="add-text" placeholder="Write your text!"
+                <input data-trans="enter-text" id="add-text" type="text" name="add-text" placeholder="Write your text!"
                     oninput="onAddText(this.value)" />
             </label>
             <div class="line">
@@ -52,10 +54,9 @@
             <div class="font-section">
                 <button onclick="onChangeTextSize('+')" class="btn font"><img src="images/icons/A+.png"></button>
                 <button onclick="onChangeTextSize('-')" class="btn font"><img src="images/icons/A-.png"></button>
-                <button onclick="onSaveMeme()" class="btn font save"><img src="images/icons/save-44-32.png"
-                        alt=""></button>
+                <button onclick="onSaveMeme()" class="btn font save"><img src="/images/save-44-32.png"></button>
                 <input class="btn font" oninput="changeTextColor(this.value)" type="color" id="txt-color"
-                    name="txt-color" value="#000000" />
+                    name="txt-color" value="#ffffff" />
                 </label>
             </div>
 
@@ -63,17 +64,11 @@
                 <button class="emoji-btn"  onclick="onRenderEmoji('😀')" class="btn font">😀</button>
                 <button class="emoji-btn"  onclick="onRenderEmoji('😍')" class="btn font">😍</button>
                 <button class="emoji-btn"  onclick="onRenderEmoji('😇')" class="btn font">😇</button>
-                <!-- <button class="emoji-btn"  onclick="onDeleteEmoji()" class="btn font"><img src="images/icons/Forme_4.png"></button> -->
             </div>
-            
-            <div class="emoji-controls">
-                <button class="emoji-btn"  onclick="onChangeEmojiSize('-')" class="btn font">-</button>
-                <button class="emoji-btn"  onclick="onChangeEmojiSize('+')" class="btn font">+</button>
-            </div>
-
+        
             <div class="file-section">
-                <a class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
-                <button onclick="onUploadImg()" class="btn file download">Share </button>
+                <a data-trans="download"class="btn file share" href="#" onclick="downloadCanvas(this)" download="file-name">Download</a>
+                <button data-trans="share" onclick="onUploadImg()" class="btn file download">Share </button>
 
             </div>
             <div class="upload-container">
@@ -106,6 +101,13 @@
                 <option value="Sport">
                 <option value="Funny">
             </datalist>
+
+            <div class="search-by-keyword">
+                <div onclick="countKeyword('funny')" class="funny">Funny</div>
+                <div onclick="countKeyword('politicians')" class="politicians">Politicians</div>
+                <div onclick="countKeyword('dogs')" class="dogs">dogs</div>
+                <div onclick="countKeyword('babys')" class="babys">Babys</div>
+            </div>
         </div>
 
         <div class="main-screen">
@@ -129,8 +131,18 @@
 
     </section>
 
-</body>
+    <!-- dialog -->
+    <dialog class="dialog">
+        <div class="dialog-content">
+          <h2>Saved!</h2>
+          <form method="dialog">
+            <button class="modal-btn">Close</button>
+          </form>
+        </div>
+      </dialog>
 
+</body>
+<script src="js/services/i18n.service.js"></script>
 <script src="js/services/util.service.js"></script>
 <script src="js/services/meme.service.js"></script>
 <script src="js/gallery.controller.js"></script>

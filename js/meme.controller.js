@@ -1,29 +1,24 @@
-let gElCanvas
-let gCtx
 
 let gStartPos
-// let gEmojiStartPos
-// let gIsEmojiActive = false
-// let gUserEmoji = ''
 let isEmojiLastChar = false
 
+const elDialog = document.querySelector('.dialog')
 
 let isFirstEdit = true
-let isEditMode = false
-
-
-
+let isEditMode = true
 
 const STORAGE_KEY = 'gMeme'
 const gSavedMemes = []
 
 
 
+const keywordCount = {};
+
 function onInit() {
   let memes = loadFromStorage(STORAGE_KEY)
-
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
+
   resizeCanvas()
   renderMeme()
   addMouseListeners()
@@ -36,32 +31,44 @@ function addMouseListeners() {
   gElCanvas.addEventListener('mousemove', onMove)
   gElCanvas.addEventListener('mouseup', onUp)
   gElCanvas.addEventListener('keydown', keyDown)
+
+  elDialog.addEventListener('click', ev => {
+    const dialogDimensions = elDialog.getBoundingClientRect()
+    if (
+      ev.clientX < dialogDimensions.left ||
+      ev.clientX > dialogDimensions.right ||
+      ev.clientY < dialogDimensions.top ||
+      ev.clientY > dialogDimensions.bottom
+    ) {
+      elDialog.close()
+    }
+  })
 }
 
 function keyDown(event) {
-  let memeText = getMeme().lines[gMeme.selectedLineIdx].txt
-  let cursorPos = memeText.length
+  let memeText = getMeme().lines[gMeme.selectedLineIdx].txt;
+  let cursorPos = memeText.length;
 
   if (event.key === 'Backspace' && isEmojiLastChar) {
-    memeText = memeText.substring(0, cursorPos - 2)
+    memeText = memeText.substring(0, cursorPos - 2);
   }
   if (isFirstEdit && event.key === 'Backspace') {
-    memeText = ''
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
-
+    memeText = '';
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
   } else if (event.key === 'Backspace') {
-    memeText = memeText.substring(0, cursorPos - 1)
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
-
+    memeText = memeText.substring(0, cursorPos - 1);
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
   } else if (event.key.length === 1) {
-    memeText += event.key
-    gMeme.lines[gMeme.selectedLineIdx].txt = memeText
-    isFirstEdit = false
-    isEmojiLastChar = false
+    if (memeText.length === 14) return;
+    memeText += event.key;
+    gMeme.lines[gMeme.selectedLineIdx].txt = memeText;
+    isFirstEdit = false;
+    isEmojiLastChar = false;
   }
 
-  renderMeme()
+  renderMeme();
 }
+
 
 function onDown(ev) {
   const pos = getEvPos(ev)
@@ -72,34 +79,31 @@ function onDown(ev) {
     setLineDrag(true)
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
-  } else return
+  }
 }
 
 
 function onMove(ev) {
-  const hoverPos = getEvPos(ev)
-  const pos = getEvPos(ev)
+  const hoverPos = getEvPos(ev);
+  const pos = getEvPos(ev);
+  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab';
 
-  let isDrag = getDragingSit()
+  let isLineDrag = getDragingSit();
+  if (isLineDrag) {
+    const dx = pos.x - gStartPos.x;
+    const dy = pos.y - gStartPos.y;
 
-  document.body.style.cursor = isLineClicked(hoverPos) ? 'grabbing' : 'grab'
+    moveLine(dx, dy);
 
-  if (isDrag) {
-    const dx = pos.x - gStartPos.x
-    const dy = pos.y - gStartPos.y
+    gStartPos = pos;
 
-    moveLine(dx, dy)
-
-    gStartPos = pos
-
-    renderMeme()
+    renderMeme();
   }
 }
 
 
 function onUp() {
   setLineDrag(false)
-  setEmojiDrag(false)
   document.body.style.cursor = 'grab'
 }
 
@@ -165,6 +169,7 @@ function changeTextColor(userColor) {
 
 function onChangeTextSize(sign) {
   setTextSize(sign)
+  renderMeme()
 }
 
 function renderTextValueAfterswitch(line) {
@@ -184,7 +189,6 @@ function onAddText(userText) {
   }
   isFirstEdit = false
   isEmojiLastChar = false
-  console.log('isEmojiLastChar', isEmojiLastChar)
   renderMeme()
 }
 
@@ -201,8 +205,6 @@ function onAddLine() {
 function onSwitchLine() {
   setSwitchLine()
   renderMeme()
-  renderFrame()
-
 }
 
 function deletePlaceHolder() {
@@ -212,58 +214,20 @@ function deletePlaceHolder() {
 
 function renderFrame() {
   let selectedLine = getSelectedLine()
+  let size = getMeme().lines[gMeme.selectedLineIdx].size
 
-  drawRect(selectedLine.x, selectedLine.y)
+  drawRect(selectedLine.x, selectedLine.y, size)
 }
+
 
 function drawRect(x, y) {
-  const rectWidth = 380;
-  const rectHeight = 80;
-  const text = getMeme().lines[gMeme.selectedLineIdx].txt;
-  const textWidth = gCtx.measureText(text).width;
-  const textHeight = parseInt(gCtx.font);
+  let size = 55
+  const rectX = x - size * 8 / 2
+  const rectY = y - size * 1.5 / 2
 
-  const rectX = x - rectWidth / 2;
-  const rectY = y - rectHeight / 2;
-
-  gCtx.strokeStyle = 'transparent';
-  gCtx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-  gCtx.setLineDash([5, 5]);
-  gCtx.fillRect(rectX, rectY, rectWidth, rectHeight);
-  gCtx.strokeRect(rectX, rectY, rectWidth, rectHeight);
-  gCtx.setLineDash([]);
-
-  const cubeSize = 10;
-  const cubeOffset = cubeSize * 1.2;
-
-  // Top cube
-  gCtx.fillStyle = 'black';
-  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY - cubeOffset, cubeSize, cubeSize);
-
-  // Right cube
-  gCtx.fillRect(rectX + rectWidth + cubeOffset, rectY + rectHeight / 2 - cubeSize / 2, cubeSize, cubeSize);
-
-  // Bottom cube
-  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY + rectHeight + cubeOffset, cubeSize, cubeSize);
-
-  // Left cube
-  gCtx.fillRect(rectX - cubeOffset, rectY + rectHeight / 2 - cubeSize / 2, cubeSize, cubeSize);
-
-  // Additional cube at the top
-  gCtx.fillRect(rectX + rectWidth / 2 - cubeSize / 2, rectY - cubeOffset - cubeOffset, cubeSize, cubeSize);
-
-  // Connecting line
-  gCtx.beginPath();
-  gCtx.moveTo(rectX + rectWidth / 2, rectY - cubeOffset);
-  gCtx.lineTo(rectX + rectWidth / 2, rectY - cubeOffset - cubeOffset);
-  gCtx.stroke();
+  gCtx.fillStyle = gCtx.fillStyle = 'rgba(255, 255, 255, 0.4)'
+  gCtx.fillRect(rectX, rectY, size * 8, size * 1.5)
 }
-
-
-
-
-
-
 
 
 
@@ -292,12 +256,18 @@ function onSaved() {
 }
 
 function onSaveMeme() {
-  const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
-  gMeme.imgUrl = imgDataUrl
+  isEditMode = false
+  renderMeme()
+  setTimeout(() => {
+    const imgDataUrl = gElCanvas.toDataURL('image/jpeg')
+    gMeme.imgUrl = imgDataUrl
+    
+    gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
+    
+    saveToStorage(STORAGE_KEY, gSavedMemes)
+  }, 100);
+  openDialog()
 
-  gSavedMemes.push(JSON.parse(JSON.stringify(gMeme)))
-
-  saveToStorage(STORAGE_KEY, gSavedMemes)
 }
 
 function renderSavedMeme() {
@@ -407,6 +377,39 @@ function onRenderEmoji(userEmoji) {
 }
 
 
+//keyword-search-board
+
+function countKeyword(keyword) {
+  let keywordSize = 15
+  if (keywordCount[keyword] === 40) return
+  if (!keywordCount[keyword]) {
+    keywordCount[keyword] = 5
+  } else {
+    keywordCount[keyword] += 5
+    document.querySelector(`.img-gallery .${keyword}`).style.fontSize =
+      `${keywordSize + keywordCount[keyword]}px`
+  }
+}
+
+
+//i18
+function onSetLang(lang) {
+  setLang(lang)
+  if (lang === 'he') document.body.classList.add('rtl')
+  else document.body.classList.remove('rtl')
+  doTrans()
+}
+
+
+//dialog
+
+function openDialog() {
+  document.querySelector('.dialog').showModal()
+}
+
+function closeDialog() {
+  document.querySelector('.dialog').close()
+}
 
 
 

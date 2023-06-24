@@ -2,13 +2,12 @@
 let gMeme = {
     selectedImgId: 10,
     selectedLineIdx: 0,
-    notSelectedLineIdx: 1,
     lines:
         [
             {
                 txt: 'Write your text!',
-                size: 30,
-                color: 'red',
+                size: 40,
+                color: 'white',
                 x: 250,
                 y: 100,
                 isDrag: false,
@@ -20,7 +19,7 @@ let gMeme = {
             {
                 txt: '',
                 size: 40,
-                color: 'blue',
+                color: 'white',
                 x: 250,
                 y: 350,
                 isDrag: false,
@@ -30,19 +29,12 @@ let gMeme = {
 
 }
 
-
-
-let gEmoji = {
-    size: 50,
-    x: 250,
-    y: 250,
-    isDrag: false,
-    isActive: false
-}
-
-
-
 let gFilterBy = ''
+
+let isFirstRandom
+let isFirstLineChecked = false
+
+
 
 let gImgs = addImgs()
 addKeyWords()
@@ -61,41 +53,28 @@ function addKeyWords() {
     gImgs[10].keywords.push('funnys')
 }
 
-let isFirstRandom
-let isFirstLineChecked = false
-
 
 //drag and drop
 function isLineClicked(clickedPos) {
-    const line = gMeme.lines[gMeme.selectedLineIdx]
-  
-    gCtx.font = `${line.size}px Arial`;
-    const textWidth = gCtx.measureText(line.txt).width
-    const textHeight = line.size;
-  
-    const rectX = line.x - textWidth / 2
-    const rectY = line.y - textHeight / 2
-  
-    return (
-      clickedPos.x >= rectX &&
-      clickedPos.x <= rectX + textWidth &&
-      clickedPos.y >= rectY &&
-      clickedPos.y <= rectY + textHeight
-    )
-}
-  
-function setLineDrag(isDrag) {
-    gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
+    let xPos = gMeme.lines[gMeme.selectedLineIdx].x
+    let yPos = gMeme.lines[gMeme.selectedLineIdx].y
+    let lineSize = gMeme.lines[gMeme.selectedLineIdx].size
+    // Calc the distance between two dots
+    const distance = Math.sqrt((xPos - clickedPos.x) ** 2 + (yPos - clickedPos.y) ** 2)
+    // console.log('distance', distance)
+    //If its smaller then the radius of the circle we are inside
+    return distance <= lineSize
 }
 
-function setEmojiDrag(isDrag) {
-    gEmoji.isDrag = isDrag
+function setLineDrag(isDrag) {
+    gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
 }
 
 function moveLine(dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
     gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
+
 
 function getDragingSit() {
     return gMeme.lines[gMeme.selectedLineIdx].isDrag
@@ -138,12 +117,11 @@ function getTextColor(line) {
 
 //font-size
 function setTextSize(signOperator) {
-    if (signOperator === '+' && gMeme.lines[gMeme.selectedLineIdx].size < 50) {
+    if (signOperator === '+' && gMeme.lines[gMeme.selectedLineIdx].size < 60) {
         gMeme.lines[gMeme.selectedLineIdx].size += 5
-    } else if (signOperator === '-' && gMeme.lines[gMeme.selectedLineIdx].size > 20) {
+    } else if (signOperator === '-' && gMeme.lines[gMeme.selectedLineIdx].size > 30) {
         gMeme.lines[gMeme.selectedLineIdx].size -= 5
     }
-    renderMeme()
 }
 
 function getTextSize(line) {
@@ -160,14 +138,12 @@ function addLine() {
 function setSwitchLine() {
     if (gMeme.selectedLineIdx === 0) {
         gMeme.selectedLineIdx = 1
-        gMeme.notSelectedLineIdx = 0
-
-        setTextValueAfterSwitch('secondLine')
+        renderTextValueAfterswitch(0)
+        
     } else if (gMeme.selectedLineIdx === 1) {
         gMeme.selectedLineIdx = 0
-        gMeme.notSelectedLineIdx = 1
-
-        setTextValueAfterSwitch('firstLine')
+        renderTextValueAfterswitch(1)
+        
     }
 
 }
@@ -212,18 +188,6 @@ function renderFlexMeme() {
     gMeme.lines[gMeme.selectedLineIdx].txt = makeLorem(3)
 }
 
-function isTextClicked(clickedPos) {
-
-    let xPose = gMeme.lines[gMeme.notSelectedLineIdx].x
-    let yPose = gMeme.lines[gMeme.notSelectedLineIdx].y
-
-    const distance = Math.sqrt((xPose - clickedPos.offsetX) ** 2 + (yPose - clickedPos.offsetY) ** 2)
-
-    return distance <= gMeme.lines[gMeme.notSelectedLineIdx].size
-
-}
-
-
 //IMG
 function addImgs() {
     res = []
@@ -242,16 +206,16 @@ function getImgs() {
 //SAVE MEMES
 function setSavedMeme(src, savedMemes) {
     const userMeme = savedMemes.find(meme => meme.imgUrl === src)
-  
+
     userMeme.lines.forEach((line, index) => {
-      const { txt, size, color, x, y } = line
-      gMeme.lines[index] = { txt, size, color, x, y }
+        const { txt, size, color, x, y } = line
+        gMeme.lines[index] = { txt, size, color, x, y }
     })
-  
+
     gMeme.selectedImgId = userMeme.selectedImgId
     renderMeme()
 }
-  
+
 //FILTER 
 
 function setFilterBy(filterBy) {
@@ -272,9 +236,18 @@ function setLineEdit(isEdit) {
     gMeme.lines[gMeme.selectedLineIdx].isEdit = isEdit
 }
 
-function getMemePose () {
+function getMemePose() {
     let res = {}
     res.x = gMeme.lines[gMeme.selectedLineIdx].x
     res.y = gMeme.lines[gMeme.selectedLineIdx].y
     return res
 }
+
+
+
+
+
+
+
+
+

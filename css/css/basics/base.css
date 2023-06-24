@@ -11,6 +11,9 @@ body {
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     cursor:grabbing;
 }
+body.rtl {
+    direction: rtl;
+}
 
 img {
     width: 100%;

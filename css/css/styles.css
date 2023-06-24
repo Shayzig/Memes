@@ -14,6 +14,7 @@
 @import url("components/img-gallery.css");
 @import url("components/saved-memes.css");
 @import url("components/emoji.css");
+@import url("components/dialog.css");
 
 /* MQ */
 @import url("basics/mq.css");

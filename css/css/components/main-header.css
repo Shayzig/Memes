@@ -9,7 +9,8 @@ header {
     width: 98%;
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     color: white;
-    height: 3.8em;
+    height: 3em;
+    font-size: 1.2em;
 }
 
 .logo {
@@ -26,4 +27,14 @@ header {
     margin: 0 1em;
     text-decoration: none;
     cursor: pointer;
+    border-radius: 1.2em;
+    padding: 0.3em;
+    transition: 0.3s;
+}
+.navbar-container >*:hover {
+   background-color: rgba(255, 255, 255, 0.25);
+}
+
+.langSelect {
+    color: black;
 }
