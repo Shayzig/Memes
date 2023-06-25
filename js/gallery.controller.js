@@ -1,7 +1,7 @@
 function onGallery() {
     document.querySelector('.main-content').style.display = 'none'
     document.querySelector('.saved-memes').style.display = 'none'
-    document.querySelector('.img-gallery').style.display = 'flex'
+    document.querySelector('.img-gallery').style.display = 'block'
     document.querySelector('body').style.background = 'none'
     document.querySelector('body').style.backgroundColor = '#22252c'
     renderGallery()

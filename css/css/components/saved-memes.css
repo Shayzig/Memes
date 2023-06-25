@@ -1,14 +1,10 @@
 .saved-memes {
     display: none;
-    flex-wrap: wrap;   
 }
 
 .saved-memes img {
-    height: 200px;
-    width: 200px;
-    border-radius: 1em;
-    margin: 1em;
-    cursor: pointer;
+    margin-block-start: 2rem;
+    border-radius: 0.8em;
 }
 .saved-memes img:hover {
    box-shadow: 0 0 15px white;
@@ -28,24 +24,11 @@
 }
 
 .saved-memes .main-screen {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: absolute;
-    top: 10%;
+    columns: 4;
     background-color: rgba(255, 255, 255, 0.268);
-    margin: 0 2%;
     border-radius: 0.8em;
+    margin: 2em;
+    padding: 4rem;
 }
 
-.saved-memes .extra-section {
-    position: absolute;
-    top: 6.5%;
-    left: 50%;
-    transform: translate(-47%, 0);
-}
-
-.saved-memes .main-screen .hello {
-    margin: 300px;
-}
 

@@ -10,6 +10,7 @@ body {
     margin: 0;
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     cursor:grabbing;
+    font-family: 'Rubik', sans-serif;
 }
 body.rtl {
     direction: rtl;
@@ -17,6 +18,8 @@ body.rtl {
 
 img {
     width: 100%;
+    margin: 0;
+    display: block;
 }
 
 h1,

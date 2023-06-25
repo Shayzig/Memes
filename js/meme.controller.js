@@ -18,7 +18,7 @@ function onInit() {
   let memes = loadFromStorage(STORAGE_KEY)
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
-
+  renderIcons()
   resizeCanvas()
   renderMeme()
   addMouseListeners()
@@ -411,7 +411,20 @@ function closeDialog() {
   document.querySelector('.dialog').close()
 }
 
+//emoji
 
+function onIconCarousel(iconIdx){
+  setCarouselIdx(iconIdx)
+  renderIcons()
+}
+
+function renderIcons(){
+  const icons = getIcons()
+  var strHTMLs = icons.map(icon=>`
+  <button class="icon-btn" onclick="onAddIcon('${icon}')">${icon}</button>
+  `)
+  document.querySelector('.icon-display').innerHTML = strHTMLs.join('')
+}
 
 
 

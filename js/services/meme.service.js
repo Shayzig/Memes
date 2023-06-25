@@ -34,10 +34,35 @@ let gFilterBy = ''
 let isFirstRandom
 let isFirstLineChecked = false
 
+let gIconIdx = 0
+let gIcons = ['😀', '🎈', '✨', '🕶', '🎩', '🎵', '💰', '🌌', '❄', '🔥', '🌠', '🍕', '🍺', '🤣', '😍', '🤑', '😢', '☠', '🐾', '🐢', '🐍']
 
 
 let gImgs = addImgs()
 addKeyWords()
+
+function getIcons() {
+    var iconIdx = gIconIdx
+    var icons = [gIcons[gIconIdx]]
+    for (var i = 0; i < 4; i++) {
+        iconIdx++
+
+        if (iconIdx >= gIcons.length) iconIdx = 0
+        icons[i + 1] = gIcons[iconIdx]
+    }
+
+
+
+    //  gIcons.slice(gIconIdx, gIconIdx+5)
+    return icons
+}
+
+function setCarouselIdx(iconIdx) {
+    gIconIdx += iconIdx
+    if (gIconIdx >= gIcons.length) gIconIdx = 0
+    if (gIconIdx < 0) gIconIdx = gIcons.length - 1
+}
+
 
 function addKeyWords() {
     gImgs[0].keywords.push('politicians')

@@ -9,13 +9,18 @@ header {
     width: 98%;
     background: linear-gradient(to right, #0f9bb3,#30bb73);
     color: white;
-    height: 3em;
-    font-size: 1.2em;
+    font-size: 1.4em;
+    padding: 0.5em;
 }
 
 .logo {
     margin-inline-start: 2em;
     cursor: pointer;
+    font-family: 'Courgette', cursive;
+}
+header .logo img {
+    height: 40px;
+
 }
 
 .navbar-container {
@@ -28,7 +33,6 @@ header {
     text-decoration: none;
     cursor: pointer;
     border-radius: 1.2em;
-    padding: 0.3em;
     transition: 0.3s;
 }
 .navbar-container >*:hover {
@@ -36,5 +40,8 @@ header {
 }
 
 .langSelect {
-    color: black;
+    color: rgb(255, 255, 255);
+    background-color: #47886679;
+    padding: 0 2em;
+    border: none;
 }
