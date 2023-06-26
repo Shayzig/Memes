@@ -32,6 +32,11 @@
     border-radius: 2em;
     opacity: 0.6;
     margin-block-end: 1.8em;
+    cursor: pointer;
+}
+
+.carousel-btn img {
+    z-index: 2;
 }
 
 
