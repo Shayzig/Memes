@@ -1,16 +1,34 @@
-@media(max-width: 1200px) {
-  .main-content {
-    flex-direction: column;
-    align-items: center;
-    margin: 1em;
-  }
-
+@media(max-width: 1400px) {
   .my-canvas canvas {
     display: block;
     background-color: white;
     border-radius: 2em;
     width: 100%;
   }
+}
+
+@media(max-width: 1200px) {
+  .img-gallery .main-screen {
+    columns: 3;
+  }
+  .saved-memes .main-screen {
+    columns: 3;
+  }
+
+  .editor .font-section {
+    justify-content: center;
+  }
+
+  .editor .font-section>* {
+    margin-inline: 1em;
+  }
+
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+    margin: 1em;
+  }
+
 
   .editor {
     width: 100%;
@@ -20,7 +38,8 @@
   .editor #add-text {
     font-size: 1.5em;
   }
-  .editor >* {
+
+  .editor>* {
     margin-inline-start: 0;
   }
 
@@ -31,24 +50,84 @@
   }
 
   .img-gallery {
-    justify-content: center;   
+    justify-content: center;
     align-items: center;
     margin: auto;
     margin-inline-start: 20px;
+  }
+
+  .navbar-container {
+    margin-inline-end: 5em;
+  }
+
+  header {
+    font-size: 1.7em;
+    padding: 0.5em;
+  }
+
+  .fonts-container {
+    top: 43%;
+    left: 35.6%;
+  }
+
 }
 
-.navbar-container {
- margin-inline-end: 5em;
+
+@media(max-width: 900px) {
+  .header {
+    font-size: 1.2em;
+    padding: 0.4em;
+  }
+
+  .logo {
+    font-size: 1.3em;
+  }
 }
 
-header { 
-  font-size: 1.7em;
-  padding: 0.5em;
-}
-
-}
-@media(max-width: 500px) {
-  header { 
+@media(max-width: 700px) {
+  header {
     font-size: 1.2em;
   }
+
+  .img-gallery .main-screen {
+    columns: 2;
+  }
+
+  .saved-memes .main-screen {
+    columns: 2;
+  }
+  .langSelect{
+    display: none;
+  }
+
+
+
+.emoji-section .icon-display {
+    padding: 0.6em 2em;
+    width: 40%;
+}
+.emoji-section .icon-display .icon-btn{
+    margin: 0em;
+}
+
+.carousel-btn {
+    width: 1.5em;
+    height: 0.75em;
+    margin-block-end: 1.4em;
+}
+
+
+.emoji-section .icon-btn {
+    all: initial;
+    font-size: 1.8rem;
+}
+
+.img-gallery .extra-section {
+  margin-block-start: 20%;
+}
+
+.my-canvas canvas {
+  margin-block-start: 3em;
+}
+
 }

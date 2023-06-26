@@ -1,0 +1,53 @@
+.fonts-container {
+    position: absolute;
+    top: 40%;
+    display: grid;
+    grid-template-rows: 0fr;
+    place-items: center;
+    overflow: hidden;
+    transition: grid-template-rows 1s;
+    border-radius: 0.6em;
+    background-color: rgb(255, 255, 255);
+    z-index: 1;    
+    color: rgb(54, 54, 54);
+   
+}
+
+.fonts-container.expanded {
+    grid-template-rows: 1fr;   
+    display: grid;
+}
+
+.font-btn {
+    cursor: pointer;
+}
+
+.font-btn:hover,
+.fonts-list li:hover {
+    background-color: rgb(0, 255, 174);
+}
+
+.fonts-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+
+    min-height: 0;
+    visibility: hidden;
+    transition: visibility 1s;
+}
+
+.fonts-list li {
+    font-size: 1em;
+    width: 200px;
+    height: 35px;
+    padding: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.fonts-container.expanded .fonts-list {
+    visibility: visible;
+}
+

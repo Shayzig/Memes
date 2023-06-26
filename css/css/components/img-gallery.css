@@ -1,6 +1,7 @@
 .img-gallery {
     display: none;
 }
+
 .img-gallery img {
     margin-block-start: 2rem;
     border-radius: 0.8em;
@@ -10,38 +11,25 @@
     box-shadow: 0 0 15px white;
 }
 
-.img-gallery .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 3em;
-    margin: auto;
-    width: 98%;
-    height: 20px;
-    background: linear-gradient(to right, #0f9bb3, #30bb73);
-    color: white;
-    height: 3.8em;
-}
-
 .img-gallery .main-screen {
     columns: 4;
     gap: 2rem;
     background-color: rgba(255, 255, 255, 0.268);
     border-radius: 0.8em;
     margin: 2em;
-    padding: 4rem;
+    padding: 2rem;
+    z-index: 1;
 }
 
 .img-gallery .extra-section {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 0 4%;
+    justify-content: center;
+    margin-block-start: 7%;
 }
 
 .img-gallery .extra-section button {
     padding: 0.6em 2em;
-
 }
 
 .extra-section>* {
@@ -54,25 +42,44 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-radius: 0.5em;
-    background-color: chartreuse;
-    width: 3.56em;
-    height: 3em;
+    border-radius: 3em;
+    border:  3px solid aquamarine ;
+    color: white;
+    width: 6em;
+    height: 1.8em;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.388);
     cursor: pointer;
 }
 
-.extra-section .search-by-keyword {
+.extra-section .filter {  
+    width: 13em;
+    height: 3.4rem;
+    margin: 2em;
+    padding: 1em;
+    border:  3px solid aquamarine ;
+    border-radius: 2em;
+    background-color:  aquamarine ;
+}
+
+ .search-words-wrap .search-by-keyword {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    background-color: orange;
-    padding: 2em;
+    border:  3px solid aquamarine ;
     color: white;
     font-family: sans-serif;
     font-size: 15px;
+    margin: 2em;
+    border-radius: 1.2em;
+    height: 5em;
+    cursor: pointer;
 }
 
-.extra-section .search-by-keyword>* {
-    margin-inline-start: 1em;
+
+.img-gallery .main-screen :first-child {
+   margin-block-start: 0;
+}
+.img-gallery .header-wraper {
+    display: flex;
+    justify-content: center;
 }

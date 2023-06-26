@@ -8,10 +8,11 @@ let gMeme = {
                 txt: 'Write your text!',
                 size: 40,
                 color: 'white',
-                x: 250,
+                x: 350,
                 y: 100,
                 isDrag: false,
-                isEditing: false
+                isEditing: false,
+                font:'arial'
 
 
             },
@@ -20,10 +21,11 @@ let gMeme = {
                 txt: '',
                 size: 40,
                 color: 'white',
-                x: 250,
+                x: 350,
                 y: 350,
                 isDrag: false,
-                isEditing: false
+                isEditing: false,
+                font:'arial'
             }
         ]
 
@@ -41,6 +43,10 @@ let gIcons = ['😀', '🎈', '✨', '🕶', '🎩', '🎵', '💰', '🌌', '�
 let gImgs = addImgs()
 addKeyWords()
 
+
+
+
+
 function getIcons() {
     var iconIdx = gIconIdx
     var icons = [gIcons[gIconIdx]]
@@ -57,11 +63,6 @@ function getIcons() {
     return icons
 }
 
-function setCarouselIdx(iconIdx) {
-    gIconIdx += iconIdx
-    if (gIconIdx >= gIcons.length) gIconIdx = 0
-    if (gIconIdx < 0) gIconIdx = gIcons.length - 1
-}
 
 
 function addKeyWords() {
@@ -188,7 +189,6 @@ function getSelectedLineUserText() {
 // img selection from gallery
 function setImageFromGallery(imgId) {
     gMeme.selectedImgId = imgId
-    renderMeme()
 }
 
 
@@ -248,31 +248,16 @@ function setFilterBy(filterBy) {
 }
 
 //EMOJI
-function changeEmojiSize(sizeOperator) {
-    if (sizeOperator === '+' && gEmoji.size < 350) {
-        gEmoji.size += 5
-    } else if (sizeOperator === '-' && gEmoji.size > 20) {
-        gEmoji.size -= 5
-    }
+
+function setCarouselIdx(iconIdx) {
+    gIconIdx += iconIdx
+    if (gIconIdx >= gIcons.length) gIconIdx = 0
+    if (gIconIdx < 0) gIconIdx = gIcons.length - 1
 }
 
-
-function setLineEdit(isEdit) {
-    gMeme.lines[gMeme.selectedLineIdx].isEdit = isEdit
+//fonts
+function setFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font.toLowerCase()
+    console.log(gMeme.lines[gMeme.selectedLineIdx].font)
 }
-
-function getMemePose() {
-    let res = {}
-    res.x = gMeme.lines[gMeme.selectedLineIdx].x
-    res.y = gMeme.lines[gMeme.selectedLineIdx].y
-    return res
-}
-
-
-
-
-
-
-
-
 

@@ -7,7 +7,6 @@
     box-shadow: 0 0 10px #30bb7357;
     box-shadow: 0 0 3px black;
     border: 1px solid rgba(0, 0, 0, 0.532);
-    padding: 20px;
 }
 
 .emoji-section  > * {
@@ -17,18 +16,24 @@
 
 .emoji-section .icon-display {
     background-color: rgba(255, 255, 255, 0.34);
-    padding: 1em;
+    padding: 0.6em 2EM;
     border-radius: 1em;
     display: flex;
     justify-content: space-evenly;
-    width: 200px;
+    width: 45%;
 }
+.emoji-section .icon-display .icon-btn{
+    margin: 0 0.1em;
+}
+
 .carousel-btn {
     width: 3em;
     height: 1.5em;
     border-radius: 2em;
     opacity: 0.6;
+    margin-block-end: 1.8em;
 }
+
 
 .emoji-section .icon-btn {
     all: initial;

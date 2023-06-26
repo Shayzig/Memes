@@ -20,8 +20,8 @@ function onInit() {
   gCtx = gElCanvas.getContext('2d')
   renderIcons()
   resizeCanvas()
-  renderMeme()
-  addMouseListeners()
+  addMouseListeners()  
+  onGallery()
 }
 
 
@@ -145,17 +145,17 @@ function renderMeme() {
 function renderLines() {
   let gMeme = getMeme()
   gMeme.lines.forEach(line => {
-    drawText(line.txt, line.color, line.size, line.x, line.y)
+    drawText(line.txt, line.color, line.size, line.x, line.y,line.font)
   })
 }
 
 
 // TEXT
-function drawText(text, color, size, x, y) {
+function drawText(text, color, size, x, y, font = 'arial') {
   gCtx.lineWidth = 2
   gCtx.strokeStyle = 'black'
   gCtx.fillStyle = color
-  gCtx.font = `${size}px Arial`
+  gCtx.font = `${size}px ${font}`
   gCtx.textAlign = 'center'
   gCtx.textBaseline = 'middle'
 
@@ -229,8 +229,6 @@ function drawRect(x, y) {
   gCtx.fillRect(rectX, rectY, size * 8, size * 1.5)
 }
 
-
-
 // DOWNLOAD
 function downloadCanvas(elLink) {
   const data = gElCanvas.toDataURL()
@@ -290,7 +288,6 @@ function onSavedMemeSelect(src) {
   let memes = loadFromStorage('gMeme')
   setSavedMeme(src, memes)
 }
-
 
 
 //SHARE
@@ -386,9 +383,10 @@ function countKeyword(keyword) {
     keywordCount[keyword] = 5
   } else {
     keywordCount[keyword] += 5
-    document.querySelector(`.img-gallery .${keyword}`).style.fontSize =
-      `${keywordSize + keywordCount[keyword]}px`
   }
+  document.querySelector(`.img-gallery .${keyword}`).style.fontSize =
+    `${keywordSize + keywordCount[keyword]}px`
+  onSetFilterBy(keyword)
 }
 
 
@@ -421,12 +419,19 @@ function onIconCarousel(iconIdx){
 function renderIcons(){
   const icons = getIcons()
   var strHTMLs = icons.map(icon=>`
-  <button class="icon-btn" onclick="onAddIcon('${icon}')">${icon}</button>
+  <button class="icon-btn" onclick="onRenderEmoji('${icon}')">${icon}</button>
   `)
   document.querySelector('.icon-display').innerHTML = strHTMLs.join('')
 }
 
 
+//fonts 
+
+function onToggleFonts() {
+  document.querySelector('.fonts-container').classList.toggle("expanded")
+}
 
 
-
+function toggleMenu() {
+  document.body.classList.toggle('menu-open');
+}

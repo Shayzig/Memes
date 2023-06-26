@@ -6,6 +6,7 @@
     width: 500px;
     border-radius: 2em;
     padding: 2em;
+    margin-block-start: 1em;
 }
 
 .editor>* {

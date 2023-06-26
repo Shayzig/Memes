@@ -4,7 +4,7 @@ function onGallery() {
     document.querySelector('.img-gallery').style.display = 'block'
     document.querySelector('body').style.background = 'none'
     document.querySelector('body').style.backgroundColor = '#22252c'
-    renderGallery()
+   renderGallery()
 }
 
 function renderGallery() {
@@ -18,7 +18,10 @@ function renderGallery() {
 }
 
 function onImgSelect(imgId) {
+    document.querySelector('#add-text').focus()
+    onMemes()
     setImageFromGallery(imgId)
+    renderMeme()
 }
 
 //FILTER BY
@@ -26,6 +29,11 @@ function onImgSelect(imgId) {
 function onSetFilterBy(filterBy) {
     setFilterBy(filterBy)
     renderGallery()
+}
+
+function onSetFont(font) {
+    setFont(font)
+    renderMeme()
 }
 
 
