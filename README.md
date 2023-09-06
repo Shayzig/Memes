@@ -2,6 +2,9 @@
 
 Unleash your creativity with our Meme Generator, born during the second sprint of the Coding Academy course. Dive into the world of canvas-based design, where you can seamlessly add, edit text, insert emojis, and indulge in drag-and-drop interactions.
 
+Try it here: [Memes Generator]( https://shayzig.github.io/Memes/)
+
+
 ## Canvas Creativity
 
 Our Meme Generator is all about the canvas – a dynamic, versatile medium that lets you shape your memes with precision. You have the power to customize text, experiment with fonts, sizes, and colors. The canvas is your playground for artistic expression.
